@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "720815803479",
+    "project_id": "tallnow",
+    "storage_bucket": "tallnow.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720815803479:android:780fa9bba4523079642712",
+        "android_client_info": {
+          "package_name": "com.example.tallnow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720815803479-242u3df23s7b46bv7g5rboh2ba1crkt9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCd6RdhTHeVwJhZkuJZB5JqUQxShsbG2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720815803479-242u3df23s7b46bv7g5rboh2ba1crkt9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
