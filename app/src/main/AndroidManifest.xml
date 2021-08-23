@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TallNow">
-        <activity android:name=".Activities.ForgetPassword_Activity"></activity>
-        <activity android:name=".Activities.CreateGroup_Activity" />
+        <activity android:name=".Activities.ForgetPassword_Activity"/>
+        <activity android:name=".Activities.CreateGroup_Activity"
+            android:label="Create a Group"/>
         <activity android:name=".Activities.AppInfo_Activity" />
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
