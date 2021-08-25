@@ -3,6 +3,7 @@ package com.example.tallnow.Activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -10,8 +11,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -38,6 +41,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainActivity extends AppCompatActivity {
     CircleImageView profile;
     TextView uname;
+    Toolbar toolbar;
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
 
@@ -45,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initViews();
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -99,14 +104,39 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
-        return true;
+    private void initViews ()
+    {
+        profile=findViewById(R.id.profile_pic1);
+        uname=findViewById(R.id.uname2);
+        toolbar=findViewById(R.id.toolbar);
+        toolbar.inflateMenu(R.menu.main_menu);
+        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference= FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected (@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(getApplicationContext(), Start.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            return true;
+        }else if(item.getItemId()==R.id.Profile){
+            startActivity(new Intent(getApplicationContext(),User_Profile.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            return true;
+        }else if (item.getItemId() == R.id.create_group){
+            startActivity(new Intent(MainActivity.this,CreateGroup_Activity.class));
+            return true;}
+        return false;
+    }
+
+    /*@Override
+    public boolean on(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.logout) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(getApplicationContext(), Start.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -119,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return false;
-    }
+    }*/
 
     public static class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
