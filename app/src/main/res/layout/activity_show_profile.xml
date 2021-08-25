@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".show_profile"
+    tools:context=".Activities.show_profile"
     android:background="#1E1919">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
                 android:layout_height="50dp"
                 android:id="@+id/change_image"
                 android:layout_marginStart="360dp"
-                android:background="@drawable/change_image"
+                android:background="@drawable/edit"
                 tools:ignore="ContentDescription" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
