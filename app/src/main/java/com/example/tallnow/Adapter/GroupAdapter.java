@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.tallnow.Activities.Group_Message;
+import com.example.tallnow.Activities.Group_Message_Activity;
 import com.example.tallnow.Classes.Group;
 import com.example.tallnow.R;
 
@@ -48,7 +48,7 @@ public class GroupAdapter extends RecyclerView.Adapter<GroupAdapter.ViewHolder>{
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(mContext, Group_Message.class);
+                Intent intent=new Intent(mContext, Group_Message_Activity.class);
                 intent.putExtra("groupname",group.getGroupname());
                 mContext.startActivity(intent);
             }

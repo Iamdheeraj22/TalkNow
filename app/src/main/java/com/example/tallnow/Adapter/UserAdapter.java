@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.tallnow.Activities.Message;
+import com.example.tallnow.Activities.Message_Activity;
 import com.example.tallnow.Classes.Chat;
 import com.example.tallnow.Classes.User;
 import com.example.tallnow.R;
@@ -80,7 +80,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(mContext, Message.class);
+                Intent intent=new Intent(mContext, Message_Activity.class);
                 intent.putExtra("userid",user.getId());
                 mContext.startActivity(intent);
             }

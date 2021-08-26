@@ -11,7 +11,7 @@ import com.example.tallnow.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Start extends AppCompatActivity {
+public class Start_Activity extends AppCompatActivity {
 
     Button btn1,btn2;
     FirebaseUser firebaseUser;
@@ -21,7 +21,7 @@ public class Start extends AppCompatActivity {
         // Check the current user
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null && firebaseUser.isEmailVerified()) {
-            Intent intent = new Intent(Start.this, MainActivity.class);
+            Intent intent = new Intent(Start_Activity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -37,14 +37,14 @@ public class Start extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Start.this,Register.class));
+                startActivity(new Intent(Start_Activity.this, Register_Activity.class));
                 finish();
             }
         });
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Start.this,Login.class));
+                startActivity(new Intent(Start_Activity.this, Login_Activity.class));
                 finish();
             }
         });
