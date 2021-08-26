@@ -8,6 +8,14 @@
 
     <include layout="@layout/main_toolbar"
         android:id="@+id/main_toolbar"/>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="2.5dp"
+        android:src="@drawable/happy"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/moodEmoji"/>
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
