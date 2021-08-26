@@ -1,3 +1,4 @@
+      <html>
       <h1>TalkNow - Stay touch with chat</h1>
       <br>
       <hr>
@@ -6,3 +7,4 @@
       <br>
       <hr>
       <br>
+      </html>
