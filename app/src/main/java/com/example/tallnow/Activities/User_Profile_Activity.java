@@ -35,21 +35,30 @@ public class User_Profile_Activity extends AppCompatActivity {
     CircleImageView circleImageView,img_on,img_off;
     TextView username,about,display_email;
     EditText aboutchange;
-    Button about_button;
+    Button about_button,mood1,mood2,mood3,mood4;
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Toolbar toolbar=findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        initViews();
+        getAndSetInfo();
+
+        circleImageView.setOnClickListener(v -> {
+            Intent intent=new Intent(User_Profile_Activity.this, profile_photo_activity.class);
+            startActivity(intent);
+        });
+        about_button.setOnClickListener(v -> {
+            String aboutstatus=aboutchange .getText().toString();
+            changeAbout(aboutstatus);
+            aboutchange.setVisibility(View.GONE);
+            about_button.setVisibility(View.GONE);
+        });
+        registerForContextMenu(about);
+    }
+
+    private void initViews () {
         img_on=findViewById(R.id.img_on);
         img_off=findViewById(R.id.img_off);
         circleImageView =findViewById(R.id.profile);
@@ -58,62 +67,14 @@ public class User_Profile_Activity extends AppCompatActivity {
         aboutchange=findViewById(R.id.changeabout);
         about_button=findViewById(R.id.about_btn);
         display_email=findViewById(R.id.display_email);
-
+        mood1=findViewById(R.id.happyMood);
+        mood2=findViewById(R.id.sadMood);
+        mood3=findViewById(R.id.cryMood);
+        mood4=findViewById(R.id.LaughMood);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(getApplicationContext()==null){
-                    return;
-                }
-                User user = snapshot.getValue(User.class);
-                assert user != null;
-                username.setText(user.getUsername());
-                about.setText(user.getAbout());
-                display_email.setText(user.getEmail());
-                if (user.getImageurl().equals("default")) {
-                    circleImageView.setImageResource(R.mipmap.ic_launcher);
-                }
-                else {
-                    Glide.with(User_Profile_Activity.this).load(user.getImageurl()).into(circleImageView);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        circleImageView.setOnClickListener(v -> {
-            Intent intent=new Intent(User_Profile_Activity.this, profile_photo_activity.class);
-            startActivity(intent);
-        });
-        about_button.setOnClickListener(v -> {
-            String aboutstatus=aboutchange .getText().toString();
-            if(aboutstatus.equals(""))
-            {
-                Toast.makeText(User_Profile_Activity.this,"Please type your status!",Toast.LENGTH_SHORT).show();
-            }
-            else{
-                databaseReference.child("about").setValue(aboutstatus).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(User_Profile_Activity.this,"Status update successfully",Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(User_Profile_Activity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-            aboutchange.setVisibility(View.GONE);
-            about_button.setVisibility(View.GONE);
-        });
-        registerForContextMenu(about);
     }
+
     @Override
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -162,4 +123,62 @@ public class User_Profile_Activity extends AppCompatActivity {
         }
         return false;
     }
+
+    //Get and set the information of user
+    private void getAndSetInfo(){
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(getApplicationContext()==null){
+                    return;
+                }
+                User user = snapshot.getValue(User.class);
+                assert user != null;
+                username.setText(user.getUsername());
+                about.setText(user.getAbout());
+                display_email.setText(user.getEmail());
+                if (user.getImageurl().equals("default")) {
+                    circleImageView.setImageResource(R.mipmap.ic_launcher);
+                }
+                else {
+                    Glide.with(User_Profile_Activity.this).load(user.getImageurl()).into(circleImageView);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    //Change About
+    private void changeAbout(String aboutstatus){
+        if(aboutstatus.equals(""))
+        {
+            Toast.makeText(User_Profile_Activity.this,"Please type your status!",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            databaseReference.child("about").setValue(aboutstatus).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(User_Profile_Activity.this,"Status update successfully",Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(User_Profile_Activity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+    }
+
+
 }
