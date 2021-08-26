@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -13,12 +14,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.webkit.MimeTypeMap;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.tallnow.Classes.User;
@@ -42,13 +42,12 @@ import com.google.firebase.storage.UploadTask;
 import java.util.HashMap;
 
 
-public class show_profile extends AppCompatActivity {
+public class profile_photo_activity extends AppCompatActivity {
 
-    ImageView imageView;
+    ImageView imageView,back_image,change_image;
     DatabaseReference databaseReference;
     FirebaseUser firebaseUser;
-    ImageButton imageButton;
-
+    Toolbar toolbar;
     StorageReference storageReference;
     private static final int IMAGE_REQUEST=1;
     private Uri imageurl;
@@ -57,10 +56,7 @@ public class show_profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_profile);
-
-        imageView=findViewById(R.id.user_image);
-        imageButton=findViewById(R.id.change_image);
-
+        initViews();
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference= FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
@@ -72,7 +68,7 @@ public class show_profile extends AppCompatActivity {
                 if (user.getImageurl().equals("default")){
                         imageView.setImageResource(R.mipmap.ic_launcher);
                     }else{
-                        Glide.with(show_profile.this).load(user.getImageurl()).into(imageView);
+                        Glide.with(profile_photo_activity.this).load(user.getImageurl()).into(imageView);
                     }
             }
             @Override
@@ -80,45 +76,45 @@ public class show_profile extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu=new PopupMenu(show_profile.this,imageButton);
-                popupMenu.getMenuInflater().inflate(R.menu.profile_change,popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @SuppressLint("NonConstantResourceId")
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        int itemId = item.getItemId();
-                        if (itemId == R.id.changeimage) {
-                            final CharSequence[] options = {"Choose from Gallery","Cancel" };
-                            AlertDialog.Builder builder = new AlertDialog.Builder(show_profile.this);
-                            builder.setTitle("Add Photo!");
-                            builder.setItems(options,new DialogInterface.OnClickListener() {
+        change_image.setOnClickListener(v -> {
+            PopupMenu popupMenu=new PopupMenu(profile_photo_activity.this,change_image);
+            popupMenu.getMenuInflater().inflate(R.menu.profile_change,popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @SuppressLint("NonConstantResourceId")
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    int itemId = item.getItemId();
+                    if (itemId == R.id.changeimage) {
+                        final CharSequence[] options = {"Choose from Gallery","Cancel" };
+                        AlertDialog.Builder builder = new AlertDialog.Builder(profile_photo_activity.this);
+                        builder.setTitle("Add Photo!");
+                        builder.setItems(options,new DialogInterface.OnClickListener() {
 
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // TODO Auto-generated method stub
-                                    if(options[which].equals("Choose from Gallery"))
-                                    {
-                                        openImage();
-                                    }
-                                    else if(options[which].equals("Cancel"))
-                                    {
-                                        dialog.dismiss();
-                                    }
-
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // TODO Auto-generated method stub
+                                if(options[which].equals("Choose from Gallery"))
+                                {
+                                    openImage();
                                 }
-                            });
-                            builder.show();
-                            return true;
-                        }
-                        return false;
+                                else if(options[which].equals("Cancel"))
+                                {
+                                    dialog.dismiss();
+                                }
+
+                            }
+                        });
+                        builder.show();
+                        return true;
                     }
-                });
-                popupMenu.show();
-            }
+                    return false;
+                }
+            });
+            popupMenu.show();
         });
+        back_image.setOnClickListener(v->
+                startActivity(new Intent(profile_photo_activity.this, User_Profile_Activity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)));
     }
     private void openImage()
     {
@@ -128,12 +124,12 @@ public class show_profile extends AppCompatActivity {
         startActivityForResult(intent,IMAGE_REQUEST);
     }
     private String getFileExtension(Uri uri){
-        ContentResolver contentResolver=show_profile.this.getContentResolver();
+        ContentResolver contentResolver= profile_photo_activity.this.getContentResolver();
         MimeTypeMap mimeTypeMap=MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
     private void uploadImage(){
-        final ProgressDialog progressDialog=new ProgressDialog(show_profile.this);
+        final ProgressDialog progressDialog=new ProgressDialog(profile_photo_activity.this);
         progressDialog.setMessage("Uploading...");
         if(imageurl!=null){
             final StorageReference file=storageReference.child(System.currentTimeMillis()+"."+getFileExtension(imageurl));
@@ -166,18 +162,18 @@ public class show_profile extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(show_profile.this,"Failed",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(profile_photo_activity.this,"Failed",Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(show_profile.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(profile_photo_activity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                 }
             });
         }else {
-            Toast.makeText(show_profile.this,"no image selected",Toast.LENGTH_SHORT).show();
+            Toast.makeText(profile_photo_activity.this,"no image selected",Toast.LENGTH_SHORT).show();
         }
         progressDialog.show();
     }
@@ -188,11 +184,18 @@ public class show_profile extends AppCompatActivity {
         if(requestCode==IMAGE_REQUEST && resultCode==RESULT_OK && data!=null && data.getData() !=null){
             imageurl=data.getData();
             if(uploadTask!=null && uploadTask.isInProgress()){
-                Toast.makeText(show_profile.this,"Upload in Progress",Toast.LENGTH_SHORT).show();
+                Toast.makeText(profile_photo_activity.this,"Upload in Progress",Toast.LENGTH_SHORT).show();
             }else
             {
                 uploadImage();
             }
         }
+    }
+
+    private void initViews(){
+        toolbar=findViewById(R.id.profile_photo);
+        imageView=findViewById(R.id.user_image);
+        change_image=toolbar.findViewById(R.id.change_image);
+        back_image=toolbar.findViewById(R.id.back_image);
     }
 }
