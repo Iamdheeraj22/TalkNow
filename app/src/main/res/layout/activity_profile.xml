@@ -153,52 +153,13 @@
             android:layout_marginStart="20dp"
             android:id="@+id/mood_heading"
             android:textStyle="bold"
+            android:layout_centerVertical="true"
             android:textSize="18sp"
             tools:ignore="HardcodedText" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/mood_heading"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/black"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_shape"
-                android:id="@+id/happyMood"
-                android:text="Happy"/>
-
-
-            <Button
-                android:layout_width="wrap_content"
-                android:textColor="@color/black"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_shape"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/sadMood"
-                android:text="sad"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:background="@drawable/button_shape"
-                android:layout_marginLeft="5dp"
-                android:id="@+id/cryMood"
-                android:text="Cry"/>
-
-            <Button
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/button_shape"
-                android:id="@+id/LaughMood"
-                android:text="Laugh"/>
-
-        </LinearLayout>
+        <Spinner
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="100dp"
+            android:id="@+id/spinner"/>
     </RelativeLayout>
 </RelativeLayout>
