@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.Group_Message">
+    tools:context=".Activities.Group_Message_Activity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
