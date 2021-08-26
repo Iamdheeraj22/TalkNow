@@ -30,17 +30,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class User_Profile extends AppCompatActivity {
+public class User_Profile_Activity extends AppCompatActivity {
 
     CircleImageView circleImageView,img_on,img_off;
     TextView username,about,display_email;
     EditText aboutchange;
     Button about_button;
-
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -80,7 +77,7 @@ public class User_Profile extends AppCompatActivity {
                     circleImageView.setImageResource(R.mipmap.ic_launcher);
                 }
                 else {
-                    Glide.with(User_Profile.this).load(user.getImageurl()).into(circleImageView);
+                    Glide.with(User_Profile_Activity.this).load(user.getImageurl()).into(circleImageView);
                 }
             }
 
@@ -90,25 +87,25 @@ public class User_Profile extends AppCompatActivity {
             }
         });
         circleImageView.setOnClickListener(v -> {
-            Intent intent=new Intent(User_Profile.this,show_profile.class);
+            Intent intent=new Intent(User_Profile_Activity.this, profile_photo_activity.class);
             startActivity(intent);
         });
         about_button.setOnClickListener(v -> {
             String aboutstatus=aboutchange .getText().toString();
             if(aboutstatus.equals(""))
             {
-                Toast.makeText(User_Profile.this,"Please type your status!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(User_Profile_Activity.this,"Please type your status!",Toast.LENGTH_SHORT).show();
             }
             else{
                 databaseReference.child("about").setValue(aboutstatus).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(User_Profile.this,"Status update successfully",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(User_Profile_Activity.this,"Status update successfully",Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(User_Profile.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(User_Profile_Activity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -131,12 +128,12 @@ public class User_Profile extends AppCompatActivity {
             databaseReference.child("about").setValue("Available").addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(User_Profile.this,"Default Status update successfully",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(User_Profile_Activity.this,"Default Status update successfully",Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(User_Profile.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(User_Profile_Activity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                 }
             });
             return true;
@@ -157,7 +154,7 @@ public class User_Profile extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.Setting) {
-            startActivity(new Intent(getApplicationContext(),Settings.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(getApplicationContext(), Settings_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             return true;
         }else if(item.getItemId()==R.id.AboutUs){
             startActivity(new Intent(getApplicationContext(), AppInfo_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));

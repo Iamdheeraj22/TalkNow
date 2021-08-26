@@ -17,7 +17,7 @@ public class IntroActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(IntroActivity.this,Start.class));
+                startActivity(new Intent(IntroActivity.this, Start_Activity.class));
                 finish();
             }
         },1000);

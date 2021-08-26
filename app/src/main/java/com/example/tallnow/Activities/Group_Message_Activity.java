@@ -44,7 +44,7 @@ import java.util.Iterator;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Group_Message extends AppCompatActivity
+public class Group_Message_Activity extends AppCompatActivity
 {
     CircleImageView group_profile;
     TextView group_name,group_desc,messages;
@@ -70,7 +70,7 @@ public class Group_Message extends AppCompatActivity
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Group_Message.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(Group_Message_Activity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 
@@ -192,12 +192,12 @@ public class Group_Message extends AppCompatActivity
         startActivityForResult(intent,IMAGE_REQUEST);
     }
     private String getFileExtension(Uri uri){
-        ContentResolver contentResolver=Group_Message.this.getContentResolver();
+        ContentResolver contentResolver= Group_Message_Activity.this.getContentResolver();
         MimeTypeMap mimeTypeMap=MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
     private void uploadImage(){
-        final ProgressDialog progressDialog=new ProgressDialog(Group_Message.this);
+        final ProgressDialog progressDialog=new ProgressDialog(Group_Message_Activity.this);
         progressDialog.setMessage("Uploading...");
         if(imageurl!=null){
             final StorageReference file=storageReference.child(System.currentTimeMillis()+"."+getFileExtension(imageurl));
@@ -227,17 +227,17 @@ public class Group_Message extends AppCompatActivity
                 }
                 else
                 {
-                    Toast.makeText(Group_Message.this,"Failed",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Group_Message_Activity.this,"Failed",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Group_Message.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Group_Message_Activity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                 }
             });
         }else {
-            Toast.makeText(Group_Message.this,"no image selected",Toast.LENGTH_SHORT).show();
+            Toast.makeText(Group_Message_Activity.this,"no image selected",Toast.LENGTH_SHORT).show();
         }
         progressDialog.show();
     }
@@ -248,7 +248,7 @@ public class Group_Message extends AppCompatActivity
         if(requestCode==IMAGE_REQUEST && resultCode==RESULT_OK && data!=null && data.getData() !=null){
             imageurl=data.getData();
             if(uploadTask!=null && uploadTask.isInProgress()){
-                Toast.makeText(Group_Message.this,"Upload in Progress",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Group_Message_Activity.this,"Upload in Progress",Toast.LENGTH_SHORT).show();
             }else
             {
                 uploadImage();

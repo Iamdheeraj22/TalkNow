@@ -3,8 +3,6 @@ package com.example.tallnow.Activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -47,7 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Message extends AppCompatActivity
+public class Message_Activity extends AppCompatActivity
 {
     CircleImageView profile;
     ImageView email_image;
@@ -87,7 +85,7 @@ public class Message extends AppCompatActivity
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Message.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(Message_Activity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 
@@ -113,7 +111,7 @@ public class Message extends AppCompatActivity
                 if(!msg.equals("")){
                     sendMessage(firebaseUser.getUid(),userid,msg);
                 }else {
-                    Toast.makeText(Message.this, "Empty Message!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Message_Activity.this, "Empty Message!", Toast.LENGTH_SHORT).show();
                 }
                 txt_send.setText("");
             }
@@ -238,7 +236,7 @@ public class Message extends AppCompatActivity
                                     if(response.code()==200){
                                         assert response.body() != null;
                                         if (response.body().succes!=1){
-                                            Toast.makeText(Message.this,"Failed",Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(Message_Activity.this,"Failed",Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 }
@@ -274,7 +272,7 @@ public class Message extends AppCompatActivity
                     {
                         mChat.add(chat);
                     }
-                    messageAdapter=new MessageAdapter(Message.this,mChat,imageurl);
+                    messageAdapter=new MessageAdapter(Message_Activity.this,mChat,imageurl);
                     recyclerView.setAdapter(messageAdapter);
                 }
             }
