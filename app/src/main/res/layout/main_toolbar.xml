@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/logout"
-                android:layout_marginStart="165dp"
+                android:layout_marginStart="205dp"
                 android:id="@+id/logoutButton"
                 tools:ignore="ContentDescription" />
         </androidx.appcompat.widget.Toolbar>
