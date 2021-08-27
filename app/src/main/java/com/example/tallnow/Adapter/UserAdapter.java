@@ -1,5 +1,6 @@
 package com.example.tallnow.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -113,6 +114,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>
         FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseReference= FirebaseDatabase.getInstance().getReference("Chats");
         databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot:snapshot.getChildren())

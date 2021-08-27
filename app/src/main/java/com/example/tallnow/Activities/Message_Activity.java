@@ -48,7 +48,6 @@ import retrofit2.Response;
 public class Message_Activity extends AppCompatActivity
 {
     CircleImageView profile;
-    ImageView email_image;
     TextView uname,about;
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
@@ -71,7 +70,6 @@ public class Message_Activity extends AppCompatActivity
         btn_send=findViewById(R.id.btn_send);
         txt_send=findViewById(R.id.txt_send);
         recyclerView=findViewById(R.id.recycler_view2);
-        email_image=findViewById(R.id.send_email);
         about=findViewById(R.id.about);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getApplicationContext());
@@ -82,12 +80,8 @@ public class Message_Activity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(".");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Message_Activity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> startActivity(new Intent(
+                Message_Activity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 
         apiService= Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
@@ -97,12 +91,6 @@ public class Message_Activity extends AppCompatActivity
         userid=intent.getStringExtra("userid");
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
 
-        email_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Todo
-            }
-        });
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,12 +121,10 @@ public class Message_Activity extends AppCompatActivity
                     Glide.with(getApplicationContext()).load(user.getImageurl()).into(profile);
                 }
                 readMessage(firebaseUser.getUid(),userid,user.getId());
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(Message_Activity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -159,7 +145,6 @@ public class Message_Activity extends AppCompatActivity
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -187,13 +172,11 @@ public class Message_Activity extends AppCompatActivity
                 if(!snapshot.exists())
                 {
                     chatref.child("id").setValue(userId);
-
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(Message_Activity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         final String msg=message;
@@ -210,7 +193,7 @@ public class Message_Activity extends AppCompatActivity
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(Message_Activity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -240,18 +223,16 @@ public class Message_Activity extends AppCompatActivity
                                         }
                                     }
                                 }
-
                                 @Override
                                 public void onFailure(Call<Myresponse> call, Throwable t) {
-
+                                    Toast.makeText(Message_Activity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(Message_Activity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -276,10 +257,9 @@ public class Message_Activity extends AppCompatActivity
                     recyclerView.setAdapter(messageAdapter);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(Message_Activity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
