@@ -235,6 +235,5 @@ public class User_Profile_Activity extends AppCompatActivity {
         super.onBackPressed();
         startActivity(new Intent(User_Profile_Activity.this,MainActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
-        finish();
     }
 }
