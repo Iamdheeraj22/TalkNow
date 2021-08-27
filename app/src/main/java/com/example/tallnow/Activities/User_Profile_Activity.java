@@ -1,6 +1,8 @@
 package com.example.tallnow.Activities;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -45,11 +47,9 @@ public class User_Profile_Activity extends AppCompatActivity {
     CircleImageView circleImageView,img_on,img_off;
     TextView username,about,display_email;
     EditText aboutchange;
-    Button about_button;
+    Button about_button,moodButton;
     FirebaseUser firebaseUser;
     ProgressDialog progressDialog;
-    List<String> moodNames;
-    Spinner spinner;
     DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,18 +68,35 @@ public class User_Profile_Activity extends AppCompatActivity {
             aboutchange.setVisibility(View.GONE);
             about_button.setVisibility(View.GONE);
         });
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        moodButton.setOnClickListener(v -> showMoodAlertDialog());
+        registerForContextMenu(about);
+    }
+
+    private void showMoodAlertDialog () {
+        AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
+        alertDialog.setTitle("AlertDialog");
+        String[] items = {"HAPPY","SAD","CRY","LAUGH"};
+        alertDialog.setItems(items, new DialogInterface.OnClickListener() {
             @Override
-            public void onItemSelected (AdapterView<?> parent, View view, int position, long id) {
-                String item = parent.getItemAtPosition(position).toString();
-                moodUpdating(item);
-            }
-            @Override
-            public void onNothingSelected (AdapterView<?> parent) {
-                //Nothing
+            public void onClick (DialogInterface dialog, int which) {
+                if(which==0){
+                    String mood="HAPPY";
+                    moodUpdating(mood);
+                }else if(which==1){
+                    String mood="SAD";
+                    moodUpdating(mood);
+                }else if(which==2){
+                    String mood="CRY";
+                    moodUpdating(mood);
+                }else if(which==3){
+                    String mood="LAUGH";
+                    moodUpdating(mood);
+                }
             }
         });
-        registerForContextMenu(about);
+        AlertDialog alert = alertDialog.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
     }
 
     private void initViews () {
@@ -88,12 +105,12 @@ public class User_Profile_Activity extends AppCompatActivity {
         circleImageView =findViewById(R.id.profile);
         username =findViewById(R.id.profile_username);
         about=findViewById(R.id.about);
+        moodButton=findViewById(R.id.moodListButton);
         aboutchange=findViewById(R.id.changeabout);
         about_button=findViewById(R.id.about_btn);
         display_email=findViewById(R.id.display_email);
         progressDialog=new ProgressDialog(this);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        setUpSpinner();
         databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
     }
 
@@ -213,15 +230,11 @@ public class User_Profile_Activity extends AppCompatActivity {
         });
     }
 
-    private void setUpSpinner(){
-        moodNames=new ArrayList<>();
-        moodNames.add("HAPPY");
-        moodNames.add("SAD");
-        moodNames.add("CRY");
-        moodNames.add("LAUGH");
-        spinner=findViewById(R.id.spinner);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, moodNames);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(dataAdapter);
+    @Override
+    public void onBackPressed () {
+        super.onBackPressed();
+        startActivity(new Intent(User_Profile_Activity.this,MainActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+        finish();
     }
 }
