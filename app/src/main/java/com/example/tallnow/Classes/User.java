@@ -8,16 +8,56 @@ public class User
     private String status;
     private String search;
     private String about;
+    private String user;
+    private String mood;
+    private String fullname;
+    private String gender;
     private String email;
 
-    public User(String id,String search, String username, String imageurl,String status,String about,String email){
+    public User (String id, String username, String imageurl, String status, String search, String about, String user, String mood, String fullname, String gender, String email) {
         this.id = id;
         this.username = username;
         this.imageurl = imageurl;
         this.status = status;
-        this.search=search;
-        this.about=about;
-        this.email=email;
+        this.search = search;
+        this.about = about;
+        this.user = user;
+        this.mood = mood;
+        this.fullname = fullname;
+        this.gender = gender;
+        this.email = email;
+    }
+
+    public String getUser () {
+        return user;
+    }
+
+    public void setUser (String user) {
+        this.user = user;
+    }
+
+    public String getMood () {
+        return mood;
+    }
+
+    public void setMood (String mood) {
+        this.mood = mood;
+    }
+
+    public String getFullname () {
+        return fullname;
+    }
+
+    public void setFullname (String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getGender () {
+        return gender;
+    }
+
+    public void setGender (String gender) {
+        this.gender = gender;
     }
 
     public User(){}

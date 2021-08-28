@@ -1,5 +1,6 @@
 package com.example.tallnow.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,13 +27,14 @@ public class Settings_Activity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     EditText oldPswd, newPswd, newConfirmPswd;
     RelativeLayout relativeLayout;
-    
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         initViews();
+        progressDialog=new ProgressDialog(this);
 
         change_password.setOnClickListener(v -> {
             change_password.setVisibility(View.GONE);
@@ -62,29 +64,34 @@ public class Settings_Activity extends AppCompatActivity {
     }
 
     private void changePassword(String old, String confirmpas) {
+        progressDialog.setTitle("We are update your password...");
+        progressDialog.show();
         AuthCredential credential = EmailAuthProvider.getCredential(firebaseUser.getEmail(), old);
         firebaseUser.reauthenticate(credential).addOnSuccessListener(aVoid -> firebaseUser.updatePassword(confirmpas)
                 .addOnSuccessListener(aVoid1 -> {
+                    progressDialog.dismiss();
                     Toast.makeText(Settings_Activity.this, "Password Updated.....", Toast.LENGTH_SHORT).show();
                     change_password.setVisibility(View.VISIBLE);
                     relativeLayout.setVisibility(View.GONE);
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Settings_Activity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        })).addOnFailureListener(e -> Toast.makeText(Settings_Activity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
+                }).addOnFailureListener(e -> {
+                            progressDialog.dismiss();
+                            Toast.makeText(Settings_Activity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                      ));
 
     }
     private void deleteAccount()
     {
-        AlertDialog.Builder builder=new AlertDialog.Builder(this).setTitle("");
+        progressDialog.setTitle("Please wait we are delete the account!");
+        AlertDialog.Builder builder=new AlertDialog.Builder(this).setTitle("Alert");
+        builder.setMessage("If you want to delete the account so type your password of TalkNow account!");
         final EditText input=new EditText(this);
         RelativeLayout.LayoutParams relativeLayout=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
         input.setLayoutParams(relativeLayout);
         builder.setView(input);
         builder.setPositiveButton("Delete", (dialog, which) -> {
             String password=input.getText().toString();
+            progressDialog.show();
             final FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
             AuthCredential credential=EmailAuthProvider
                     .getCredential(user.getEmail(),password);
@@ -92,6 +99,7 @@ public class Settings_Activity extends AppCompatActivity {
                     .addOnCompleteListener(task -> user.delete().addOnCompleteListener(task1 -> {
                         if(task1.isSuccessful())
                         {
+                            progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(),"Account deleted successfully",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(Settings_Activity.this, Start_Activity.class));
                         }

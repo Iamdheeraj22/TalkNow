@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     TextView uname;
     Toolbar toolbar;
     FirebaseUser firebaseUser;
-    ImageView logoutImage;
+    ImageView logoutImage,emojiImage;
     //Handler handler;
     DatabaseReference databaseReference;
     FloatingActionButton floatingActionButton;
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initViews();
         getAndSetInfo();
+        setTheEmoji();
         final TabLayout tabLayout=findViewById(R.id.tab_layout);
         final ViewPager viewPager=findViewById(R.id.view_pager);
 
@@ -66,13 +67,41 @@ public class MainActivity extends AppCompatActivity {
         logoutImage.setOnClickListener(v -> {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Alert");
+            alert.setMessage("Do you want to logout?");
             alert.setPositiveButton("Yes", (dialog, which) -> {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(), Start_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(getApplicationContext(), Start_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             }).setNegativeButton("No",null);
             alert.show();
         });
     }
+
+    private void setTheEmoji ()
+    {
+        DatabaseReference emoji=FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid());
+        emoji.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange (@NonNull DataSnapshot snapshot) {
+                   if(snapshot.exists()){
+                       String emojiMood=snapshot.child("mood").getValue().toString();
+                       if(emojiMood.equals("HAPPY")){
+                           emojiImage.setImageResource(R.drawable.happy);
+                       }else if(emojiMood.equals("SAD")){
+                           emojiImage.setImageResource(R.drawable.sad);
+                       }else if (emojiMood.equals("CRY")){
+                           emojiImage.setImageResource(R.drawable.cry);
+                       }else if(emojiMood.equals("LAUGH")){
+                           emojiImage.setImageResource(R.drawable.laugh);
+                       }
+                   }
+            }
+            @Override
+            public void onCancelled (@NonNull DatabaseError error) {
+                Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void setMessageAndTablayout (TabLayout tabLayout, ViewPager viewPager)
     {
         databaseReference=FirebaseDatabase.getInstance().getReference("Chats");
@@ -108,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
     private void initViews ()
     {
         //handler=new Handler();
+        emojiImage=findViewById(R.id.moodEmoji);
         toolbar=findViewById(R.id.toolbar);
         profile=toolbar.findViewById(R.id.profile_pic1);
         uname=toolbar.findViewById(R.id.uname2);

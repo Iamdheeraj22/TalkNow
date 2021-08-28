@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Message">
+    tools:context=".Activities.Message_Activity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,9 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
-            android:background="@color/colorPrimary"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-            app:popupTheme="@style/MenuStyle">
+            android:background="@color/colorPrimary">
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -29,20 +27,13 @@
                 android:id="@+id/uname4"
                 android:layout_marginStart="25dp"
                 android:textColor="@color/black"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="320dp"
-                android:background="@drawable/email"
-                android:id="@+id/send_email"
-                android:contentDescription="Email"
-                tools:ignore="HardcodedText" />
         </androidx.appcompat.widget.Toolbar>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tool"
             android:textStyle="bold"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:id="@+id/about"
             tools:ignore="HardcodedText"/>
@@ -56,17 +47,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:padding="5dp"
-        android:background="#fff"
+        android:background="#090909"
         android:id="@+id/bottom"
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content">
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="50dp"
             android:id="@+id/txt_send"
             android:layout_toLeftOf="@id/btn_send"
-            android:background="@android:color/transparent"
+            android:background="@drawable/edittext_shape"
             android:hint="Type a message....."
+            android:paddingLeft="10dp"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
             android:layout_centerVertical="true"
             tools:ignore="HardcodedText,RtlHardcoded"
             android:textSize="15sp"
@@ -76,6 +70,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/btn_send"
+            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:contentDescription="profileimage"
             android:background="@drawable/send"

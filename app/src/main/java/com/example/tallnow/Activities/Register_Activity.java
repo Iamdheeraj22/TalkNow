@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,28 +22,40 @@ import java.util.HashMap;
 public class Register_Activity extends AppCompatActivity
 {
     Button btn3;
-    EditText uname,email1,createpassword,confirmpassword;
+    EditText uname,email1,createpassword,confirmpassword,fullname;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
-
+    CheckBox male,female;
+    String gender="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        btn3=findViewById(R.id.btn3);
-        uname=findViewById(R.id.uname);
-        email1=findViewById(R.id.email1);
-        createpassword=findViewById(R.id.createpassword);
-        confirmpassword=findViewById(R.id.confirmpassword);
-        firebaseAuth=FirebaseAuth.getInstance();
+        initViews();
+
+        male.setOnClickListener(v -> {
+            String userGender="male";
+            male.setChecked(true);
+            female.setChecked(false);
+        });
+        female.setOnClickListener(v -> {
+            String userGender="female";
+            male.setChecked(false);
+            female.setChecked(true);
+        });
+
+
         btn3.setOnClickListener(v -> {
             String txt_username=uname.getText().toString();
             String txt_email=email1.getText().toString();
             String create_password=createpassword.getText().toString();
             String confirm_password=createpassword.getText().toString();
+            String fullName=fullname.getText().toString();
             if(TextUtils.isEmpty(txt_username)){
                 Toast.makeText(Register_Activity.this,"Please enter username",Toast.LENGTH_SHORT).show();
+            }else if(fullName.equals("")){
+                Toast.makeText(Register_Activity.this,"Please enter fullname",Toast.LENGTH_SHORT).show();
             }else if(TextUtils.isEmpty(txt_email)){
                 Toast.makeText(Register_Activity.this,"Please enter email",Toast.LENGTH_SHORT).show();
             }else if(TextUtils.isEmpty(create_password) && TextUtils.isEmpty(confirm_password)){
@@ -51,13 +65,29 @@ public class Register_Activity extends AppCompatActivity
             }else if(!confirm_password.equals(create_password)){
                 Toast.makeText(Register_Activity.this,"Password doesn't match!",Toast.LENGTH_SHORT).show();
             }else {
-                RegisterUser(txt_username,txt_email,confirm_password);
+                RegisterUser(fullName,txt_username,txt_email,confirm_password,gender);
             }
         });
     }
 
-    private void RegisterUser(String username,String email,String password)
+    private void initViews ()
     {
+        btn3=findViewById(R.id.btn3);
+        uname=findViewById(R.id.uname);
+        email1=findViewById(R.id.email1);
+        createpassword=findViewById(R.id.createpassword);
+        confirmpassword=findViewById(R.id.confirmpassword);
+        firebaseAuth=FirebaseAuth.getInstance();
+        male=findViewById(R.id.maleCheckbox);
+        female=findViewById(R.id.feMaleCheckbox);
+        fullname=findViewById(R.id.userFullName);
+    }
+
+    private void RegisterUser(String username,String email,String password,String fullName,String gender)
+    {
+        if(gender.equals("")){
+            Toast.makeText(this, "Select the gender...", Toast.LENGTH_SHORT).show();
+        }
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
@@ -68,9 +98,12 @@ public class Register_Activity extends AppCompatActivity
                 hashMap.put("username",username);
                 hashMap.put("email",email);
                 hashMap.put("imageurl","default");
+                hashMap.put("fullname",fullName);
+                hashMap.put("mood","default");
                 hashMap.put("status","Offline");
                 hashMap.put("user","new");
                 hashMap.put("about","Available");
+                hashMap.put("gender",gender);
                 hashMap.put("search",username.toUpperCase());
 
                 databaseReference.setValue(hashMap).addOnCompleteListener(task1 -> {
