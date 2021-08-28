@@ -67,9 +67,10 @@ public class MainActivity extends AppCompatActivity {
         logoutImage.setOnClickListener(v -> {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Alert");
+            alert.setMessage("Do you want to logout?");
             alert.setPositiveButton("Yes", (dialog, which) -> {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(), Start_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(getApplicationContext(), Start_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             }).setNegativeButton("No",null);
             alert.show();
         });
