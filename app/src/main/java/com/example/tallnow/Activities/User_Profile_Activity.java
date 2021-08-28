@@ -151,9 +151,6 @@ public class User_Profile_Activity extends AppCompatActivity {
         if (item.getItemId() == R.id.Setting) {
             startActivity(new Intent(getApplicationContext(), Settings_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             return true;
-        }else if(item.getItemId()==R.id.AboutUs){
-            startActivity(new Intent(getApplicationContext(), AppInfo_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            return true;
         }
         return false;
     }
