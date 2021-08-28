@@ -16,8 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TalkNow">
-
-        <activity android:name=".Activities.Start_Activity"/>
+        <activity android:name=".Activities.Start_Activity" />
         <activity
             android:name=".Activities.Group_Message_Activity"
             android:parentActivityName=".Activities.MainActivity" />
@@ -29,9 +28,6 @@
             android:parentActivityName=".Activities.User_Profile_Activity" />
         <activity
             android:name=".Activities.User_Profile_Activity"
-            android:parentActivityName=".Activities.MainActivity" />
-        <activity
-            android:name=".Activities.AppInfo_Activity"
             android:parentActivityName=".Activities.MainActivity" />
         <activity
             android:name=".Activities.Settings_Activity"
@@ -58,24 +54,23 @@
             </intent-filter>
         </activity>
 
-
-    <service
-        android:name=".Notification.MyFirebaseInstanceService"
-        android:enabled="true"
-        android:exported="false"
-        tools:ignore="Instantiatable">
-        <intent-filter>
-            <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-        </intent-filter>
-    </service>
-    <service
-        android:name=".Notification.MyFirebaseMessaging"
-        android:enabled="true"
-        android:exported="false">
-        <intent-filter>
-            <action android:name="com.google.firebase.MESSAGING_EVENT" />
-        </intent-filter>
-    </service>
-</application>
+        <service
+            android:name=".Notification.MyFirebaseInstanceService"
+            android:enabled="true"
+            android:exported="false"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Notification.MyFirebaseMessaging"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+    </application>
 
 </manifest>
