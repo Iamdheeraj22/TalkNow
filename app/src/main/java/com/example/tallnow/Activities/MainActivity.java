@@ -10,8 +10,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.audiofx.BassBoost;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -243,5 +249,41 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart () {
+        super.onStart();
+        if(!isConnected(this)){
+            showCustomDialog();
+        }
+    }
 
+    private void showCustomDialog ()
+    {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setMessage("Please check your internet connection!");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Okay", (dialog, which) -> {
+            if(isConnected(MainActivity.this)){
+                Toast.makeText(MainActivity.this, "Internet is available", Toast.LENGTH_SHORT).show();
+            }else{
+                finish();
+            }
+        }).setNegativeButton("Settings", (dialog, which) -> {
+            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+            Toast.makeText(MainActivity.this, "enable your internet connection!", Toast.LENGTH_SHORT).show();
+        });
+        builder.show();
+    }
+
+    private boolean isConnected (MainActivity mainActivity){
+        ConnectivityManager connectivityManager=(ConnectivityManager)mainActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiConnection=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConnection=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        if((wifiConnection !=null) && wifiConnection.isConnected() || (mobileConnection !=null) && mobileConnection.isConnected()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
