@@ -2,6 +2,7 @@ package com.example.tallnow.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,30 +26,16 @@ public class Register_Activity extends AppCompatActivity
     EditText uname,email1,createpassword,confirmpassword,fullname;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
-    CheckBox male,female;
-    String gender="";
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
         initViews();
-
-        male.setOnClickListener(v -> {
-            String userGender="male";
-            male.setChecked(true);
-            female.setChecked(false);
-        });
-        female.setOnClickListener(v -> {
-            String userGender="female";
-            male.setChecked(false);
-            female.setChecked(true);
-        });
-
-
         btn3.setOnClickListener(v -> {
             String txt_username=uname.getText().toString();
-            String txt_email=email1.getText().toString();
+            String txt_email=email1.getText().toString().trim();
             String create_password=createpassword.getText().toString();
             String confirm_password=createpassword.getText().toString();
             String fullName=fullname.getText().toString();
@@ -65,7 +52,7 @@ public class Register_Activity extends AppCompatActivity
             }else if(!confirm_password.equals(create_password)){
                 Toast.makeText(Register_Activity.this,"Password doesn't match!",Toast.LENGTH_SHORT).show();
             }else {
-                RegisterUser(fullName,txt_username,txt_email,confirm_password,gender);
+                RegisterUser(fullName,txt_username,txt_email,confirm_password);
             }
         });
     }
@@ -78,16 +65,14 @@ public class Register_Activity extends AppCompatActivity
         createpassword=findViewById(R.id.createpassword);
         confirmpassword=findViewById(R.id.confirmpassword);
         firebaseAuth=FirebaseAuth.getInstance();
-        male=findViewById(R.id.maleCheckbox);
-        female=findViewById(R.id.feMaleCheckbox);
         fullname=findViewById(R.id.userFullName);
+        progressDialog=new ProgressDialog(this);
     }
 
-    private void RegisterUser(String username,String email,String password,String fullName,String gender)
+    private void RegisterUser(String fullName,String username,String email,String password)
     {
-        if(gender.equals("")){
-            Toast.makeText(this, "Select the gender...", Toast.LENGTH_SHORT).show();
-        }
+        progressDialog.setTitle("Please wait we are creating your account!");
+        progressDialog.show();
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
@@ -103,7 +88,6 @@ public class Register_Activity extends AppCompatActivity
                 hashMap.put("status","Offline");
                 hashMap.put("user","new");
                 hashMap.put("about","Available");
-                hashMap.put("gender",gender);
                 hashMap.put("search",username.toUpperCase());
 
                 databaseReference.setValue(hashMap).addOnCompleteListener(task1 -> {
@@ -114,6 +98,7 @@ public class Register_Activity extends AppCompatActivity
                                 Intent intent=new Intent(Register_Activity.this, Login_Activity.class);
                                 startActivity(intent);
                             }else{
+                                progressDialog.dismiss();
                                 Toast.makeText(Register_Activity.this, task11.getException().getMessage(),Toast.LENGTH_SHORT).show();
                             }
                        });
@@ -121,6 +106,7 @@ public class Register_Activity extends AppCompatActivity
                 });
             }else
             {
+                progressDialog.dismiss();
                 Toast.makeText(Register_Activity.this, task.getException().getMessage(),Toast.LENGTH_SHORT).show();
             }
         });

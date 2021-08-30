@@ -43,7 +43,7 @@
             android:hint="Full name"
             android:drawableStart="@drawable/edit"
             android:textSize="25sp"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:autofillHints="no"
             android:paddingStart="20dp"
             android:drawablePadding="10dp"
@@ -111,30 +111,6 @@
             android:drawablePadding="10dp"
             tools:ignore="HardcodedText,RtlSymmetry" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Male"
-                android:textSize="20sp"
-                android:id="@+id/maleCheckbox"
-                tools:ignore="HardcodedText" />
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Female"
-                android:layout_marginStart="30sp"
-                android:textSize="20sp"
-                android:id="@+id/feMaleCheckbox"
-                tools:ignore="HardcodedText" />
-
-        </LinearLayout>
     </LinearLayout>
 
     <Button
