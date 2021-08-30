@@ -21,7 +21,9 @@ import android.provider.Settings;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -259,20 +261,41 @@ public class MainActivity extends AppCompatActivity {
 
     private void showCustomDialog ()
     {
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setMessage("Please check your internet connection!");
+        AlertDialog builder=new AlertDialog.Builder(this,R.style.internet_alertdialogbox).create();
         builder.setCancelable(false);
-        builder.setPositiveButton("Okay", (dialog, which) -> {
+        View view=getLayoutInflater().inflate(R.layout.internet_connection_alertbox,null);
+        builder.setView(view);
+        Button cancelButton,settingButton;
+        cancelButton=view.findViewById(R.id.alertCancelButton);
+        settingButton=view.findViewById(R.id.alertSettingButton);
+        builder.show();
+        cancelButton.setOnClickListener(v -> {
             if(isConnected(MainActivity.this)){
                 Toast.makeText(MainActivity.this, "Internet is available", Toast.LENGTH_SHORT).show();
             }else{
                 finish();
             }
-        }).setNegativeButton("Settings", (dialog, which) -> {
-            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-            Toast.makeText(MainActivity.this, "enable your internet connection!", Toast.LENGTH_SHORT).show();
         });
-        builder.show();
+        settingButton.setOnClickListener(v -> {
+            PopupMenu popupMenu=new PopupMenu(this,settingButton);
+            popupMenu.getMenuInflater().inflate(R.menu.internet_connection,popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick (MenuItem item) {
+                    if(item.getItemId()==R.id.mobileData){
+                        startActivity(new Intent(Settings.ACTION_SETTINGS));
+                        Toast.makeText(MainActivity.this, "enable your internet connection!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }else if(item.getItemId()==R.id.wifiSetting){
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                        Toast.makeText(MainActivity.this, "check your internet connection!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            popupMenu.show();
+        });
     }
 
     private boolean isConnected (MainActivity mainActivity){

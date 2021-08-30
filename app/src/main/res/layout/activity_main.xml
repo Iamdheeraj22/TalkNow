@@ -15,7 +15,8 @@
         android:layout_marginTop="13dp"
         android:src="@drawable/happy"
         android:layout_centerHorizontal="true"
-        android:id="@+id/moodEmoji"/>
+        android:id="@+id/moodEmoji"
+        tools:ignore="ContentDescription" />
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
