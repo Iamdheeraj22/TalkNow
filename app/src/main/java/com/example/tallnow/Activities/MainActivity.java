@@ -10,12 +10,20 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.audiofx.BassBoost;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -243,5 +251,62 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart () {
+        super.onStart();
+        if(!isConnected(this)){
+            showCustomDialog();
+        }
+    }
 
+    private void showCustomDialog ()
+    {
+        AlertDialog builder=new AlertDialog.Builder(this,R.style.internet_alertdialogbox).create();
+        builder.setCancelable(false);
+        View view=getLayoutInflater().inflate(R.layout.internet_connection_alertbox,null);
+        builder.setView(view);
+        Button cancelButton,settingButton;
+        cancelButton=view.findViewById(R.id.alertCancelButton);
+        settingButton=view.findViewById(R.id.alertSettingButton);
+        builder.show();
+        cancelButton.setOnClickListener(v -> {
+            if(isConnected(MainActivity.this)){
+                Toast.makeText(MainActivity.this, "Internet is available", Toast.LENGTH_SHORT).show();
+            }else{
+                finish();
+            }
+        });
+        settingButton.setOnClickListener(v -> {
+            PopupMenu popupMenu=new PopupMenu(this,settingButton);
+            popupMenu.getMenuInflater().inflate(R.menu.internet_connection,popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick (MenuItem item) {
+                    if(item.getItemId()==R.id.mobileData){
+                        startActivity(new Intent(Settings.ACTION_SETTINGS));
+                        Toast.makeText(MainActivity.this, "enable your internet connection!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }else if(item.getItemId()==R.id.wifiSetting){
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                        Toast.makeText(MainActivity.this, "check your internet connection!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+            popupMenu.show();
+        });
+    }
+
+    private boolean isConnected (MainActivity mainActivity){
+        ConnectivityManager connectivityManager=(ConnectivityManager)mainActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiConnection=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConnection=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        if((wifiConnection !=null) && wifiConnection.isConnected() || (mobileConnection !=null) && mobileConnection.isConnected()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/mobileData"
+        android:title="Mobile Data"
+        tools:ignore="HardcodedText" />
+
+    <item android:id="@+id/wifiSetting"
+        android:title="Wifi Setting"
+        tools:ignore="HardcodedText" />
+</menu>
