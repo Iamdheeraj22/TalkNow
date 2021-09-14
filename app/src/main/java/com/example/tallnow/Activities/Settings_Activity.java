@@ -63,6 +63,7 @@ public class Settings_Activity extends AppCompatActivity {
         account_delete.setOnClickListener(v -> deleteAccount());
     }
 
+
     private void changePassword(String old, String confirmpas) {
         progressDialog.setTitle("We are update your password...");
         progressDialog.show();
@@ -80,34 +81,6 @@ public class Settings_Activity extends AppCompatActivity {
                       ));
 
     }
-    private void deleteAccount()
-    {
-        progressDialog.setTitle("Please wait we are delete the account!");
-        AlertDialog.Builder builder=new AlertDialog.Builder(this).setTitle("Alert");
-        builder.setMessage("If you want to delete the account so type your password of TalkNow account!");
-        final EditText input=new EditText(this);
-        RelativeLayout.LayoutParams relativeLayout=new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT);
-        input.setLayoutParams(relativeLayout);
-        builder.setView(input);
-        builder.setPositiveButton("Delete", (dialog, which) -> {
-            String password=input.getText().toString();
-            progressDialog.show();
-            final FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
-            AuthCredential credential=EmailAuthProvider
-                    .getCredential(user.getEmail(),password);
-            user.reauthenticate(credential)
-                    .addOnCompleteListener(task -> user.delete().addOnCompleteListener(task1 -> {
-                        if(task1.isSuccessful())
-                        {
-                            progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(),"Account deleted successfully",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Settings_Activity.this, Start_Activity.class));
-                        }
-                    }));
-        }).setNegativeButton("Cancel",null);
-        builder.show();
-    }
-
     private void initViews(){
         account_delete = findViewById(R.id.delete_button);
         change_password = findViewById(R.id.change_btn);
@@ -127,5 +100,47 @@ public class Settings_Activity extends AppCompatActivity {
         alert.setPositiveButton("Okay", (dialog, which) -> Toast.makeText(Settings_Activity.this, "Be Careful....", Toast.LENGTH_SHORT).show());
         alert.show();
         relativeLayout.setVisibility(View.GONE);
+    }
+
+    private void deleteAccount ()
+    {
+        AlertDialog builder=new AlertDialog.Builder(this,R.style.delete_user_account).create();
+        builder.setCancelable(true);
+        View view=getLayoutInflater().inflate(R.layout.delete_account_alert,null);
+        builder.setView(view);
+        Button cancel,delete;
+        EditText password;
+        builder.show();
+        password=findViewById(R.id.delete_account_password);
+        cancel=view.findViewById(R.id.warningCancelButton);
+        delete=view.findViewById(R.id.warningDeleteButton);
+
+        cancel.setOnClickListener(v->{
+            builder.dismiss();
+        });
+        delete.setOnClickListener(v->{
+            String userPassword=password.getText().toString();
+            if(userPassword.equals(""))
+                password.setError("Type your account password!");
+
+            if(!userPassword.equals("")){
+                progressDialog.setTitle("Please wait we are delete the account!");
+                progressDialog.show();
+            final FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+            AuthCredential credential=EmailAuthProvider
+                    .getCredential(user.getEmail(),userPassword);
+                user.reauthenticate(credential)
+                    .addOnCompleteListener(task -> user.delete().addOnCompleteListener(task1 -> {
+                        if(task1.isSuccessful()){
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(),"Account deleted successfully",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(Settings_Activity.this, Start_Activity.class));
+                        }else{
+                            progressDialog.dismiss();
+                            Toast.makeText(this, task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }));
+            }
+        });
     }
 }
