@@ -17,4 +17,7 @@
     <style name="internet_alertdialogbox" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowBackground">@drawable/alert_background</item>
     </style>
+    <style name="delete_user_account" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@drawable/alert_background</item>
+    </style>
 </resources>
