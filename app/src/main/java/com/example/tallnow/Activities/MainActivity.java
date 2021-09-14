@@ -279,20 +279,17 @@ public class MainActivity extends AppCompatActivity {
         settingButton.setOnClickListener(v -> {
             PopupMenu popupMenu=new PopupMenu(this,settingButton);
             popupMenu.getMenuInflater().inflate(R.menu.internet_connection,popupMenu.getMenu());
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick (MenuItem item) {
-                    if(item.getItemId()==R.id.mobileData){
-                        startActivity(new Intent(Settings.ACTION_SETTINGS));
-                        Toast.makeText(MainActivity.this, "enable your internet connection!", Toast.LENGTH_SHORT).show();
-                        return true;
-                    }else if(item.getItemId()==R.id.wifiSetting){
-                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                        Toast.makeText(MainActivity.this, "check your internet connection!", Toast.LENGTH_SHORT).show();
-                        return true;
-                    }
-                    return false;
+            popupMenu.setOnMenuItemClickListener(item -> {
+                if(item.getItemId()==R.id.mobileData){
+                    startActivity(new Intent(Settings.ACTION_SETTINGS));
+                    Toast.makeText(MainActivity.this, "enable your internet connection!", Toast.LENGTH_SHORT).show();
+                    return true;
+                }else if(item.getItemId()==R.id.wifiSetting){
+                    startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    Toast.makeText(MainActivity.this, "check your internet connection!", Toast.LENGTH_SHORT).show();
+                    return true;
                 }
+                return false;
             });
             popupMenu.show();
         });

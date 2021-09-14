@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -51,13 +50,13 @@ public class Group_Message_Activity extends AppCompatActivity
     ImageButton btn_send;
     EditText txt_send;
     Intent intent;
-    String groups_name,Current_User;
+    String groups_name;
     DatabaseReference UserRef,GroupRef,GroupMessageRef;
 
     StorageReference storageReference;
     private static final int IMAGE_REQUEST=1;
     private Uri imageurl;
-    private StorageTask uploadTask;
+    StorageTask uploadTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,12 +66,7 @@ public class Group_Message_Activity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(".");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Group_Message_Activity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> startActivity(new Intent(Group_Message_Activity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 
         group_profile=findViewById(R.id.groupimage);
         group_name=findViewById(R.id.update_groupname);
@@ -139,7 +133,6 @@ public class Group_Message_Activity extends AppCompatActivity
 
                         GroupMessageRef.updateChildren(messageInfo);
                     }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 
@@ -202,16 +195,12 @@ public class Group_Message_Activity extends AppCompatActivity
         if(imageurl!=null){
             final StorageReference file=storageReference.child(System.currentTimeMillis()+"."+getFileExtension(imageurl));
             uploadTask=file.putFile(imageurl);
-            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception
+            uploadTask.continueWithTask((Continuation<UploadTask.TaskSnapshot, Task<Uri>>) task -> {
+                if(!task.isSuccessful())
                 {
-                    if(!task.isSuccessful())
-                    {
-                        throw task.getException();
-                    }
-                    return file.getDownloadUrl();
+                    throw task.getException();
                 }
+                return file.getDownloadUrl();
             }).addOnCompleteListener((OnCompleteListener<Uri>) task -> {
                 if(task.isSuccessful()){
                     Uri downloaduri=task.getResult();
@@ -230,12 +219,7 @@ public class Group_Message_Activity extends AppCompatActivity
                     Toast.makeText(Group_Message_Activity.this,"Failed",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Group_Message_Activity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-                }
-            });
+            }).addOnFailureListener(e -> Toast.makeText(Group_Message_Activity.this,e.getMessage(),Toast.LENGTH_SHORT).show());
         }else {
             Toast.makeText(Group_Message_Activity.this,"no image selected",Toast.LENGTH_SHORT).show();
         }
