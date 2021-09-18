@@ -45,10 +45,11 @@
             android:layout_marginTop="20dp"
             android:id="@+id/delete_txt"/>
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="50dp"
             android:layout_below="@id/delete_txt"
             android:layout_marginStart="20dp"
+            android:background="@drawable/button_shape"
             android:layout_marginTop="10dp"
             android:text="Delete Your account"
             tools:ignore="HardcodedText,RtlHardcoded"
@@ -65,10 +66,12 @@
             android:textStyle="bold"/>
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Update Password"
+            android:background="@drawable/button_shape"
             android:id="@+id/change_btn"
+            android:layout_marginTop="15dp"
             android:layout_marginStart="20dp"
             android:layout_below="@id/change_password"
             tools:ignore="HardcodedText" />

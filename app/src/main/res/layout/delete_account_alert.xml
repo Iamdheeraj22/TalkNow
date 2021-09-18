@@ -39,11 +39,26 @@
             android:text="Are you sure want to be delete your account?\n\t\t\t\t if you delete your account  , you will\n\t\t\t\t\t permanently lose your profile , \n\t\t\t\t\t\t\t\t messages and photos."
             tools:ignore="HardcodedText" />
     </LinearLayout>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#333232"
+        android:layout_height="50dp"
+        android:paddingHorizontal="10dp"
+        android:autofillHints="no"
+        android:inputType="textPassword"
+        android:id="@+id/delete_account_password"
+        android:hint="Type your password!"
+        android:textColorHint="@color/white"
+        android:background="@drawable/edittext_shape"
+        android:layout_below="@id/linearLayout1"
+        tools:ignore="HardcodedText" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
         android:layout_marginBottom="10dp"
         android:layout_below="@id/linearLayout1">
 
@@ -60,7 +75,7 @@
             android:background="@drawable/button_shape"
             android:text="Delete"
             android:layout_marginStart="50dp"
-            android:id="@+id/warningSettingButton"
+            android:id="@+id/warningDeleteButton"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
