@@ -69,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager viewPager=findViewById(R.id.view_pager);
 
         floatingActionButton.setOnClickListener(v->
-                startActivity(new Intent(getApplicationContext(), User_Profile_Activity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)));
+                startActivity(new Intent(getApplicationContext(), User_Profile_Activity.class)));
         setMessageAndTablayout(tabLayout,viewPager);
         logoutImage.setOnClickListener(v -> {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);

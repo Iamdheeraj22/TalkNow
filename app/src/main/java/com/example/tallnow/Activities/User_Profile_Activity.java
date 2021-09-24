@@ -171,9 +171,8 @@ public class User_Profile_Activity extends AppCompatActivity {
                 if (user.getImageurl().equals("default")) {
                     circleImageView.setImageResource(R.mipmap.ic_launcher);
                 }
-                else {
-                    Glide.with(User_Profile_Activity.this).load(user.getImageurl()).into(circleImageView);
-                }
+                    Glide.with(getApplicationContext()).load(user.getImageurl()).into(circleImageView);
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -228,9 +227,9 @@ public class User_Profile_Activity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed () {
-        super.onBackPressed();
-        startActivity(new Intent(User_Profile_Activity.this,MainActivity.class)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 }
