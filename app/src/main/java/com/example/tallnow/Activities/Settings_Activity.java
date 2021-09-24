@@ -111,7 +111,7 @@ public class Settings_Activity extends AppCompatActivity {
         Button cancel,delete;
         EditText password;
         builder.show();
-        password=findViewById(R.id.delete_account_password);
+        password=view.findViewById(R.id.delete_account_password);
         cancel=view.findViewById(R.id.warningCancelButton);
         delete=view.findViewById(R.id.warningDeleteButton);
 
