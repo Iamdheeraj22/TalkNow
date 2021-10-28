@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/drawable/button_shape.xml" value="0.2203125" />
+        <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/drawable/edittext_shape.xml" value="0.2203125" />
+        <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/drawable/email.xml" value="0.2203125" />
+        <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/drawable/ic_back_24.xml" value="0.2203125" />
+        <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_forget_password.xml" value="0.18" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
