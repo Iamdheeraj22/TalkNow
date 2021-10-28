@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tallnow.R;
@@ -15,8 +17,9 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ForgetPassword_Activity extends AppCompatActivity {
 
     EditText email;
-    Button forget_password;
+    TextView forget_password;
     ProgressDialog progressDialog;
+    LinearLayout layout;
     FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -25,6 +28,10 @@ public class ForgetPassword_Activity extends AppCompatActivity {
         initViews();
         forget_password.setOnClickListener(v -> sendResetPassword()
                 );
+        layout.setOnClickListener(v->{
+            startActivity(new Intent(ForgetPassword_Activity.this,Login_Activity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+        });
     }
     private void initViews ()
     {
@@ -32,6 +39,7 @@ public class ForgetPassword_Activity extends AppCompatActivity {
         forget_password=findViewById(R.id.forget_submit);
         firebaseAuth= FirebaseAuth.getInstance();
         progressDialog=new ProgressDialog(this);
+        layout=findViewById(R.id.backLinerLyout);
     }
     private void sendResetPassword(){
         progressDialog.setTitle("Please wait few seconds!");
@@ -53,5 +61,12 @@ public class ForgetPassword_Activity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(ForgetPassword_Activity.this,Login_Activity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 }
