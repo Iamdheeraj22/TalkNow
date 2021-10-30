@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,8 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Login_Activity extends AppCompatActivity
 {
-    Button btn4,btn5,btn6;
-    TextView forget_password;
+    TextView forget_password,btnSignUp,btnlogin;
     EditText email2,password2;
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
@@ -40,12 +38,8 @@ public class Login_Activity extends AppCompatActivity
         setContentView(R.layout.activity_login);
         initViews();
 
-        btn6.setOnClickListener(v -> {
+        btnSignUp.setOnClickListener(v -> {
             startActivity(new Intent(Login_Activity.this, Register_Activity.class));
-            finish();
-        });
-        btn5.setOnClickListener(v -> {
-            startActivity(new Intent(Login_Activity.this, Start_Activity.class));
             finish();
         });
         forget_password.setOnClickListener(v -> {
@@ -53,7 +47,7 @@ public class Login_Activity extends AppCompatActivity
             startActivity(intent);
             finish();
         });
-        btn4.setOnClickListener(v -> {
+        btnlogin.setOnClickListener(v -> {
             progressDialog.setMessage("Please wait few seconds..");
             progressDialog.show();
             String txt_email=email2.getText().toString();
@@ -86,13 +80,12 @@ public class Login_Activity extends AppCompatActivity
     }
 
     private void initViews () {
-        btn4=findViewById(R.id.btn4);
+        btnlogin=findViewById(R.id.btnlogin);
         email2=findViewById(R.id.email2);
         password2=findViewById(R.id.password2);
         forget_password=findViewById(R.id.forget);
         firebaseAuth= FirebaseAuth.getInstance();
-        btn5=findViewById(R.id.btn5);
-        btn6=findViewById(R.id.btn6);
+        btnSignUp=findViewById(R.id.btnSignUp);
         progressDialog=new ProgressDialog(this);
     }
 }
