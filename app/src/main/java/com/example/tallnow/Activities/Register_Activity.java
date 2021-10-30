@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tallnow.R;
@@ -22,7 +23,7 @@ import java.util.HashMap;
 
 public class Register_Activity extends AppCompatActivity
 {
-    Button btn3;
+    TextView btn3;
     EditText uname,email1,createpassword,confirmpassword,fullname;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
@@ -31,7 +32,6 @@ public class Register_Activity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
         initViews();
         btn3.setOnClickListener(v -> {
             String txt_username=uname.getText().toString();
