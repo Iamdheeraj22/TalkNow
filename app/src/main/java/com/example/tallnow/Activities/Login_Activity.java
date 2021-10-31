@@ -25,7 +25,7 @@ public class Login_Activity extends AppCompatActivity
         super.onStart();
         AlertDialog.Builder alert=new AlertDialog.Builder(Login_Activity.this);
         alert.setMessage("If you are new user then first verify your email(Check your email)")
-                .setPositiveButton("Okay", (dialog, which) ->
+                .setPositiveButton("Ok", (dialog, which) ->
                         Toast.makeText(Login_Activity.this,"Thank you",Toast.LENGTH_SHORT).show());
         AlertDialog alertDialog=alert.create();
         alertDialog.setTitle("Notice");
