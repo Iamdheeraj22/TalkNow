@@ -16,6 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TalkNow">
+        <activity
+            android:name=".Activities.ForgetPasswordConfirmation"
+            android:exported="false" />
         <activity android:name=".Activities.Start_Activity" />
         <activity
             android:name=".Activities.Group_Message_Activity"
@@ -46,7 +49,9 @@
         <activity
             android:name=".Activities.Register_Activity"
             android:parentActivityName=".Activities.Start_Activity" />
-        <activity android:name=".Activities.IntroActivity">
+        <activity
+            android:name=".Activities.IntroActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
