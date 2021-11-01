@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.example.tallnow.R;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.regex.Pattern;
+
 public class ForgetPassword_Activity extends AppCompatActivity {
 
     EditText email;
@@ -45,15 +47,15 @@ public class ForgetPassword_Activity extends AppCompatActivity {
         progressDialog.setTitle("Please wait few seconds!");
         String txt_email=email.getText().toString();
         if(txt_email.equals("")){
-            Toast.makeText(ForgetPassword_Activity.this,"Please enter the your email!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ForgetPassword_Activity.this,"Please check your mail!",Toast.LENGTH_SHORT).show();
         }else
         {
             progressDialog.show();
             firebaseAuth.sendPasswordResetEmail(txt_email).addOnCompleteListener(task -> {
                 if(task.isSuccessful()){
-                    Toast.makeText(ForgetPassword_Activity.this,"Please check your email!",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ForgetPassword_Activity.this,"Please check your email!",Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
-                    startActivity(new Intent(ForgetPassword_Activity.this, Login_Activity.class));
+                    startActivity(new Intent(ForgetPassword_Activity.this, ForgetPasswordConfirmation.class));
                 }else {
                     progressDialog.dismiss();
                     String error=task.getException().getMessage();
