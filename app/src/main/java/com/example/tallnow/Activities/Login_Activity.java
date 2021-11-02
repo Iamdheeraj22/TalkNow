@@ -1,7 +1,9 @@
 package com.example.tallnow.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
@@ -61,6 +63,12 @@ public class Login_Activity extends AppCompatActivity
                     if(task.isSuccessful())
                     {
                         if(firebaseAuth.getCurrentUser().isEmailVerified()){
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyInfo", MODE_PRIVATE);
+                            @SuppressLint("CommitPrefEdits")
+                            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                            myEdit.putString("email",firebaseAuth.getCurrentUser().getEmail());
+                            myEdit.putString("uid",firebaseAuth.getCurrentUser().getUid());
+                            myEdit.apply();
                             progressDialog.dismiss();
                             Intent intent=new Intent(Login_Activity.this,MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
