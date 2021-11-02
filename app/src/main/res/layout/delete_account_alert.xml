@@ -1,82 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="10dp"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/delete_warning"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:id="@+id/warning_image"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/linearLayout1"
-        android:layout_marginTop="30sp"
-        android:layout_marginBottom="30sp"
-        android:layout_below="@id/warning_image"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/delete_warning"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:id="@+id/warning_image"/>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete Account"
-            android:textSize="15dp"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:textColor="@color/black"/>
+            android:layout_centerHorizontal="true"
+            android:id="@+id/linearLayout1"
+            android:layout_marginTop="30sp"
+            android:layout_marginBottom="30sp"
+            android:layout_below="@id/warning_image"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_gravity="center"
-            android:text="Are you sure want to be delete your account?\n\t\t\t\t if you delete your account  , you will\n\t\t\t\t\t permanently lose your profile , \n\t\t\t\t\t\t\t\t messages and photos."
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delete Account"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:text="Are you sure want to be delete your account?\n\t\t\t\t if you delete your account  , you will\n\t\t\t\t\t permanently lose your profile , \n\t\t\t\t\t\t\t\t messages and photos."
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+        <EditText
+            android:layout_width="200dp"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="#333232"
+            android:layout_height="50dp"
+            android:paddingHorizontal="10dp"
+            android:autofillHints="no"
+            android:inputType="textPassword"
+            android:id="@+id/delete_account_password"
+            android:hint="Type your password!"
+            android:textColorHint="@color/white"
+            android:background="@drawable/edittext_shape"
+            android:layout_below="@id/linearLayout1"
             tools:ignore="HardcodedText" />
-    </LinearLayout>
-    <EditText
-        android:layout_width="200dp"
-        android:layout_centerHorizontal="true"
-        android:backgroundTint="#333232"
-        android:layout_height="50dp"
-        android:paddingHorizontal="10dp"
-        android:autofillHints="no"
-        android:inputType="textPassword"
-        android:id="@+id/delete_account_password"
-        android:hint="Type your password!"
-        android:textColorHint="@color/white"
-        android:background="@drawable/edittext_shape"
-        android:layout_below="@id/linearLayout1"
-        tools:ignore="HardcodedText" />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@id/linearLayout1">
-
-        <Button
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_shape"
-            android:text="Cancel"
-            android:id="@+id/warningCancelButton"
-            tools:ignore="HardcodedText" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_shape"
-            android:text="Delete"
-            android:layout_marginStart="50dp"
-            android:id="@+id/warningDeleteButton"
-            tools:ignore="HardcodedText" />
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/linearLayout1">
 
-    </LinearLayout>
-</RelativeLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_shape"
+                android:text="Cancel"
+                android:id="@+id/warningCancelButton"
+                tools:ignore="HardcodedText" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_shape"
+                android:text="Delete"
+                android:layout_marginStart="50dp"
+                android:id="@+id/warningDeleteButton"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

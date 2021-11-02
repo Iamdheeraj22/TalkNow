@@ -7,13 +7,13 @@
     android:background="#1E1919">
     <include layout="@layout/profile_photo_toolbar"
         android:id="@+id/profile_photo_toolbar"/>
+
     <ImageView
         android:id="@+id/user_image"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/person"
         android:contentDescription="User Image"
+        android:src="@drawable/person"
         tools:ignore="HardcodedText" />
 </RelativeLayout>

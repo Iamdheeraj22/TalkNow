@@ -3,19 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="Fragments.Users">
+
     <EditText
+        android:id="@+id/search_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/edittext_shape"
         android:hint="Search"
-        android:id="@+id/search_user"
         android:importantForAutofill="no"
-        tools:ignore="HardcodedText"
-        android:inputType="text" />
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColorHint="@color/black"
+        tools:ignore="HardcodedText" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/search_user"
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycler_view"/>
+        android:layout_below="@id/search_user" />
 
 </RelativeLayout>

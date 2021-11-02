@@ -7,29 +7,30 @@
     android:padding="8dp">
 
     <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_alignParentEnd="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentEnd="true">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/back_right"
-            android:text="hello"
-            android:layout_alignParentEnd="true"
             android:id="@+id/show_message"
-            android:padding="8dp"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            tools:ignore="HardcodedText" />
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="seen"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/back_right"
+            android:padding="8dp"
+            android:paddingStart="10dp"
+            android:text="hello"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
             android:id="@+id/txt_seen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/show_message"
             android:layout_alignParentEnd="true"
+            android:text="seen"
             tools:ignore="HardcodedText" />
     </RelativeLayout>
 </RelativeLayout>

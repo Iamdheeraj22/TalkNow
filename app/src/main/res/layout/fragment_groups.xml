@@ -3,28 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="Fragments.Groups">
+
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/search_groups"
-        android:autofillHints="NO"
-        android:inputType="text"
-        tools:ignore="LabelFor" />
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:autofillHints="NO"
+        android:background="@drawable/edittext_shape"
+        android:inputType="text"
+        android:padding="10dp"
+        tools:ignore="LabelFor" />
+
+    <TextView
         android:id="@+id/myGroups"
-        android:text="Groups"
-        tools:ignore="HardcodedText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/search_groups"
-        android:textSize="18sp"
         android:layout_marginTop="10dp"
-        />
+        android:text="Groups"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        tools:ignore="HardcodedText" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycler_view"
         android:layout_below="@id/myGroups"
-        android:layout_marginTop="10dp"
-        />
+        android:layout_marginTop="10dp" />
 </RelativeLayout>
