@@ -15,12 +15,14 @@
             android:background="@color/colorPrimary">
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="30dp"
+                android:src="@drawable/person"
                 android:layout_height="30dp"
                 android:id="@+id/profile_pic1"
                 tools:ignore="ContentDescription" />
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="20dp"
+                android:text="Username"
                 android:id="@+id/uname2"
                 android:layout_marginStart="25dp"
                 android:textColor="@color/black"/>

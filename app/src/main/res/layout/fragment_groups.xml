@@ -10,28 +10,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_centerHorizontal="true"
         android:autofillHints="NO"
         android:background="@drawable/edittext_shape"
         android:inputType="text"
         android:padding="10dp"
         tools:ignore="LabelFor" />
 
-    <TextView
-        android:id="@+id/myGroups"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/search_groups"
-        android:layout_marginTop="10dp"
-        android:text="Groups"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        tools:ignore="HardcodedText" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/myGroups"
-        android:layout_marginTop="10dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_below="@id/search_groups" />
 </RelativeLayout>

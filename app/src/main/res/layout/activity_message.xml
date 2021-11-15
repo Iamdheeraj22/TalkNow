@@ -6,44 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".Activities.Message_Activity">
 
-    <com.google.android.material.appbar.AppBarLayout
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/tool"-->
+<!--        android:background="@color/colorPrimary">-->
+<!--        -->
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tool"
         android:background="@color/colorPrimary">
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toolbar"
-            android:background="@color/colorPrimary">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:id="@+id/profile_pic3"
-                tools:ignore="ContentDescription" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:id="@+id/uname4"
-                android:layout_marginStart="25dp"
-                android:textColor="@color/black"/>
-        </androidx.appcompat.widget.Toolbar>
+
+        <ImageView
+            android:id="@+id/back_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/back_image"
+            tools:ignore="ContentDescription" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_pic3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/person"
+            app:civ_border_width="1dp"
+            tools:ignore="ContentDescription" />
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tool"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:id="@+id/about"
-            tools:ignore="HardcodedText"/>
-    </com.google.android.material.appbar.AppBarLayout>
+            android:id="@+id/uname4"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="17dp"
+            android:textColor="@color/black" />
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view2"
+        android:layout_marginTop="2dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycler_view2"
-        android:layout_below="@id/tool"
-        android:layout_above="@id/bottom"/>
+        android:layout_above="@id/bottom"
+        android:layout_below="@id/toolbar" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:padding="5dp"
@@ -51,29 +61,33 @@
         android:id="@+id/bottom"
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content">
+
         <EditText
+            android:id="@+id/txt_send"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:id="@+id/txt_send"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/btn_send"
             android:background="@drawable/edittext_shape"
             android:hint="Type a message....."
-            android:paddingLeft="10dp"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
-            android:layout_centerVertical="true"
-            tools:ignore="HardcodedText,RtlHardcoded"
-            android:textSize="15sp"
             android:importantForAutofill="no"
-            android:inputType="text" />
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:inputType="text"
+            android:paddingLeft="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+        <ImageView
             android:id="@+id/btn_send"
-            android:layout_centerVertical="true"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:backgroundTint="@color/colorPrimary"
             android:contentDescription="profileimage"
-            android:background="@drawable/send"
+            android:src="@drawable/send"
             tools:ignore="ContentDescription,HardcodedText" />
     </RelativeLayout>
 </RelativeLayout>
