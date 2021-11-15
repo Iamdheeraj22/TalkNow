@@ -4,6 +4,7 @@
     package="com.example.tallnow">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -15,11 +16,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TalkNow">
+        android:theme="@style/Theme.TalkNow"
+        tools:ignore="AllowBackup">
+        <receiver
+            android:name=".Receiver.MyReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"
+                    tools:ignore="BatteryLife" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".Activities.ForgetPasswordConfirmation"
             android:exported="false" />
-        <activity android:name=".Activities.Start_Activity" />
         <activity
             android:name=".Activities.Group_Message_Activity"
             android:parentActivityName=".Activities.MainActivity" />
@@ -39,16 +49,14 @@
             android:name=".Activities.ForgetPassword_Activity"
             android:label="Reset your password!"
             android:parentActivityName=".Activities.Login_Activity" />
-        <activity
-            android:name=".Activities.Message_Activity"
-            android:parentActivityName=".Activities.MainActivity" />
+        <activity android:name=".Activities.Message_Activity"
+            android:parentActivityName=".Activities.MainActivity"/>
         <activity android:name=".Activities.MainActivity" />
         <activity
-            android:name=".Activities.Login_Activity"
-            android:parentActivityName=".Activities.Start_Activity" />
+            android:name=".Activities.Login_Activity"/>
         <activity
             android:name=".Activities.Register_Activity"
-            android:parentActivityName=".Activities.Start_Activity" />
+            android:parentActivityName=".Activities.Login_Activity" />
         <activity
             android:name=".Activities.IntroActivity"
             android:exported="true">
