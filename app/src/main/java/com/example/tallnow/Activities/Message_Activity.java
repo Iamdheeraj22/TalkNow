@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,10 +48,10 @@ import retrofit2.Response;
 public class Message_Activity extends AppCompatActivity
 {
     CircleImageView profile;
-    TextView uname,about;
+    TextView uname;
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
-    ImageButton btn_send;
+    ImageView btn_send;
     EditText txt_send;
     MessageAdapter messageAdapter;
     List<Chat> mChat;
@@ -69,16 +70,20 @@ public class Message_Activity extends AppCompatActivity
         btn_send=findViewById(R.id.btn_send);
         txt_send=findViewById(R.id.txt_send);
         recyclerView=findViewById(R.id.recycler_view2);
-        about=findViewById(R.id.about);
+
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
         Toolbar toolbar=findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(".");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ImageView backImage;
+        backImage=toolbar.findViewById(R.id.back_image);
+        backImage.setOnClickListener(v->{
+            startActivity(new Intent(
+                    Message_Activity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        });
         toolbar.setNavigationOnClickListener(v -> startActivity(new Intent(
                 Message_Activity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
 
@@ -112,7 +117,6 @@ public class Message_Activity extends AppCompatActivity
                 User user=snapshot.getValue(User.class);
                 assert user != null;
                 uname.setText(user.getUsername());
-                about.setText(user.getAbout());
                 if(user.getImageurl().equals("default"))
                 {
                     profile.setImageResource(R.mipmap.ic_launcher_round);

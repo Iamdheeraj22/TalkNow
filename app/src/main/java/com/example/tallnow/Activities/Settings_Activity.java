@@ -134,7 +134,7 @@ public class Settings_Activity extends AppCompatActivity {
                         if(task1.isSuccessful()){
                             progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(),"Account deleted successfully",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(Settings_Activity.this, Start_Activity.class));
+                            startActivity(new Intent(Settings_Activity.this, Login_Activity.class));
                         }else{
                             progressDialog.dismiss();
                             Toast.makeText(this, task1.getException().getMessage(), Toast.LENGTH_SHORT).show();

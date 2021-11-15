@@ -7,20 +7,24 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.tallnow.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class IntroActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
         super.onStart();
-        Handler handler=new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(IntroActivity.this, Start_Activity.class));
-                finish();
-            }
-        },1000);
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser == null) {
+            Intent intent = new Intent(IntroActivity.this, Login_Activity.class);
+            startActivity(intent);
+            finish();
+        }else if(firebaseUser!=null && firebaseUser.isEmailVerified()){
+            Intent intent = new Intent(IntroActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override

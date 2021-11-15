@@ -10,12 +10,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.audiofx.BassBoost;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.ContextMenu;
@@ -34,6 +37,7 @@ import com.example.tallnow.Fragments.Chats;
 import com.example.tallnow.Fragments.Groups;
 import com.example.tallnow.Fragments.Users;
 import com.example.tallnow.R;
+import com.example.tallnow.Receiver.MyReceiver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,6 +55,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
     CircleImageView profile;
+    BroadcastReceiver broadcastReceiver;
     TextView uname;
     Toolbar toolbar;
     FirebaseUser firebaseUser;
@@ -77,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             alert.setMessage("Do you want to logout?");
             alert.setPositiveButton("Yes", (dialog, which) -> {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(), Start_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                startActivity(new Intent(getApplicationContext(), Login_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
             }).setNegativeButton("No",null);
             alert.show();
         });
@@ -152,6 +157,8 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton=findViewById(R.id.floatingButton1);
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         databaseReference= FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        broadcastReceiver=new MyReceiver();
+        registerNetwork();
     }
 
     @Override
@@ -164,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onContextItemSelected (@NonNull MenuItem item) {
         if (item.getItemId() == R.id.logout) {
             FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(getApplicationContext(), Start_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(getApplicationContext(), Login_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             return true;
         }else if(item.getItemId()==R.id.Profile){
             startActivity(new Intent(getApplicationContext(), User_Profile_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -219,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        registerNetwork();
         status("Online");
     }
 
@@ -226,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         status("Offline");
+        unRegisterNetwork();
     }
 
     //Get and Set the Image and name
@@ -250,59 +259,24 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    private void registerNetwork(){
+          if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+              registerReceiver(broadcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+          }
+    }
+
+    private void unRegisterNetwork(){
+         try {
+              unregisterReceiver(broadcastReceiver);
+         }catch (IllegalArgumentException e){
+             e.printStackTrace();
+         }
+    }
+
     @Override
-    protected void onStart () {
-        super.onStart();
-        if(!isConnected(this)){
-            showCustomDialog();
-        }
-    }
-
-    private void showCustomDialog ()
-    {
-        AlertDialog builder=new AlertDialog.Builder(this,R.style.internet_alertdialogbox).create();
-        builder.setCancelable(false);
-        View view=getLayoutInflater().inflate(R.layout.internet_connection_alertbox,null);
-        builder.setView(view);
-        Button cancelButton,settingButton;
-        cancelButton=view.findViewById(R.id.alertCancelButton);
-        settingButton=view.findViewById(R.id.alertSettingButton);
-        builder.show();
-        cancelButton.setOnClickListener(v -> {
-            if(isConnected(MainActivity.this)){
-                Toast.makeText(MainActivity.this, "Internet is available", Toast.LENGTH_SHORT).show();
-            }else{
-                finish();
-            }
-        });
-        settingButton.setOnClickListener(v -> {
-            PopupMenu popupMenu=new PopupMenu(this,settingButton);
-            popupMenu.getMenuInflater().inflate(R.menu.internet_connection,popupMenu.getMenu());
-            popupMenu.setOnMenuItemClickListener(item -> {
-                if(item.getItemId()==R.id.mobileData){
-                    startActivity(new Intent(Settings.ACTION_SETTINGS));
-                    Toast.makeText(MainActivity.this, "enable your internet connection!", Toast.LENGTH_SHORT).show();
-                    return true;
-                }else if(item.getItemId()==R.id.wifiSetting){
-                    startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-                    Toast.makeText(MainActivity.this, "check your internet connection!", Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-                return false;
-            });
-            popupMenu.show();
-        });
-    }
-
-    private boolean isConnected (MainActivity mainActivity){
-        ConnectivityManager connectivityManager=(ConnectivityManager)mainActivity.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo wifiConnection=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        NetworkInfo mobileConnection=connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-
-        if((wifiConnection !=null) && wifiConnection.isConnected() || (mobileConnection !=null) && mobileConnection.isConnected()){
-            return true;
-        }else{
-            return false;
-        }
+    protected void onDestroy() {
+        super.onDestroy();
+        unRegisterNetwork();
     }
 }
