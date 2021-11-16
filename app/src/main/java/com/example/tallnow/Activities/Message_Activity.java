@@ -218,7 +218,7 @@ public class Message_Activity extends AppCompatActivity
                     apiService.sendNotification(sender)
                             .enqueue(new Callback<Myresponse>() {
                                 @Override
-                                public void onResponse(Call<Myresponse> call, Response<Myresponse> response) {
+                                public void onResponse(@NonNull Call<Myresponse> call, Response<Myresponse> response) {
                                     if(response.code()==200){
                                         assert response.body() != null;
                                         if (response.body().succes!=1){

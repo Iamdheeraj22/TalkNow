@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        broadcastReceiver=new MyReceiver();
+        registerNetwork();
         initViews();
         getAndSetInfo();
         setTheEmoji();
@@ -157,8 +159,6 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton=findViewById(R.id.floatingButton1);
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         databaseReference= FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-        broadcastReceiver=new MyReceiver();
-        registerNetwork();
     }
 
     @Override
@@ -264,6 +264,9 @@ public class MainActivity extends AppCompatActivity {
           if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
               registerReceiver(broadcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
           }
+          if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+              registerReceiver(broadcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+          }
     }
 
     private void unRegisterNetwork(){
@@ -273,7 +276,6 @@ public class MainActivity extends AppCompatActivity {
              e.printStackTrace();
          }
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -51,7 +51,7 @@
             android:parentActivityName=".Activities.Login_Activity" />
         <activity android:name=".Activities.Message_Activity"
             android:parentActivityName=".Activities.MainActivity"/>
-        <activity android:name=".Activities.MainActivity" />
+        <activity android:name=".Activities.MainActivity"/>
         <activity
             android:name=".Activities.Login_Activity"/>
         <activity
