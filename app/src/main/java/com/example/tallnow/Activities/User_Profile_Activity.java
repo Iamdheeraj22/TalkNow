@@ -99,6 +99,12 @@ public class User_Profile_Activity extends AppCompatActivity {
         alert.show();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void initViews () {
         img_on=findViewById(R.id.img_on);
         img_off=findViewById(R.id.img_off);
@@ -224,12 +230,5 @@ public class User_Profile_Activity extends AppCompatActivity {
             progressDialog.dismiss();
             Toast.makeText(User_Profile_Activity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Intent intent=new Intent(this,MainActivity.class);
-        startActivity(intent);
     }
 }

@@ -31,32 +31,24 @@
             android:name=".Activities.ForgetPasswordConfirmation"
             android:exported="false" />
         <activity
-            android:name=".Activities.Group_Message_Activity"
-            android:parentActivityName=".Activities.MainActivity" />
+            android:name=".Activities.Group_Message_Activity"/>
         <activity
-            android:name=".Activities.CreateGroup_Activity"
-            android:parentActivityName=".Activities.MainActivity" />
+            android:name=".Activities.CreateGroup_Activity"/>
         <activity
-            android:name=".Activities.profile_photo_activity"
-            android:parentActivityName=".Activities.User_Profile_Activity" />
+            android:name=".Activities.profile_photo_activity" />
         <activity
-            android:name=".Activities.User_Profile_Activity"
-            android:parentActivityName=".Activities.MainActivity" />
+            android:name=".Activities.User_Profile_Activity" />
         <activity
-            android:name=".Activities.Settings_Activity"
-            android:parentActivityName=".Activities.MainActivity" />
+            android:name=".Activities.Settings_Activity" />
         <activity
             android:name=".Activities.ForgetPassword_Activity"
-            android:label="Reset your password!"
-            android:parentActivityName=".Activities.Login_Activity" />
-        <activity android:name=".Activities.Message_Activity"
-            android:parentActivityName=".Activities.MainActivity"/>
+            android:label="Reset your password!"/>
+        <activity android:name=".Activities.Message_Activity" />
         <activity android:name=".Activities.MainActivity"/>
         <activity
             android:name=".Activities.Login_Activity"/>
         <activity
-            android:name=".Activities.Register_Activity"
-            android:parentActivityName=".Activities.Login_Activity" />
+            android:name=".Activities.Register_Activity"/>
         <activity
             android:name=".Activities.IntroActivity"
             android:exported="true">

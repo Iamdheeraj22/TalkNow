@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        broadcastReceiver=new MyReceiver();
+        broadcastReceiver = new MyReceiver();
         registerNetwork();
         initViews();
         getAndSetInfo();
@@ -76,8 +76,9 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager viewPager=findViewById(R.id.view_pager);
 
         floatingActionButton.setOnClickListener(v->
-                startActivity(new Intent(getApplicationContext(), User_Profile_Activity.class)));
+                 startActivity(new Intent(this, User_Profile_Activity.class)));
         setMessageAndTablayout(tabLayout,viewPager);
+
         logoutImage.setOnClickListener(v -> {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setTitle("Alert");
@@ -260,16 +261,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void registerNetwork(){
-          if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-              registerReceiver(broadcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-          }
-          if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-              registerReceiver(broadcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-          }
+    protected void registerNetwork(){
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
+            registerReceiver(broadcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            registerReceiver(broadcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        }
     }
 
-    private void unRegisterNetwork(){
+    protected void unRegisterNetwork(){
          try {
               unregisterReceiver(broadcastReceiver);
          }catch (IllegalArgumentException e){

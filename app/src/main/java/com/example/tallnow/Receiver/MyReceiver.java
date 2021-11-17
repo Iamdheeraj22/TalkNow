@@ -1,6 +1,7 @@
 package com.example.tallnow.Receiver;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,20 +17,16 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 
 import com.example.tallnow.Activities.MainActivity;
 import com.example.tallnow.R;
 
 public class MyReceiver extends BroadcastReceiver {
 
-    @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override
     public void onReceive(Context context, Intent intent) {
         try{
-            if(isOnline(context)){
-                Toast.makeText(context, "Internet available....", Toast.LENGTH_SHORT).show();
-            }else{
+            if(!isOnline(context)){
                 alertBox(context);
             }
         }catch (NullPointerException nullPointerException){
@@ -55,7 +52,7 @@ public class MyReceiver extends BroadcastReceiver {
     }
 
     private  void alertBox(Context context){
-        AlertDialog.Builder alert=new AlertDialog.Builder(context.getApplicationContext());
+        android.app.AlertDialog.Builder alert=new AlertDialog.Builder(context);
         alert.setMessage("No internet connection");
         alert.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
             @Override
