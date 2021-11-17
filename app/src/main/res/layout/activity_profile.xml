@@ -163,6 +163,7 @@
             android:background="@drawable/button_shape"
             android:text="Mood List"
             android:textAllCaps="false"
+            android:textColor="@color/white"
             tools:ignore="HardcodedText" />
     </RelativeLayout>
 </RelativeLayout>

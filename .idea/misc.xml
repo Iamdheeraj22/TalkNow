@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/drawable/back_left.xml" value="0.2203125" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/drawable/button_shape.xml" value="0.2203125" />
+        <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/drawable/delete_warning.xml" value="0.1125" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/drawable/edit.xml" value="0.2203125" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/drawable/edittext_shape.xml" value="0.2203125" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/drawable/email.xml" value="0.2203125" />
@@ -16,13 +17,16 @@
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_create_group.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_forget_password.xml" value="0.25" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_forget_password_confirmation.xml" value="0.25" />
+        <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_group_message.xml" value="0.1" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_message.xml" value="0.18" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_profile.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_settings.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_show_profile.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_start.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/bar_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/chat_item_left.xml" value="0.33" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/chat_item_right.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/delete_account_alert.xml" value="0.18" />
@@ -34,30 +38,6 @@
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/main_toolbar.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/profile_photo_toolbar.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/user_item.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_create_group.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_forget_password.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_forget_password_confirmation.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_group_message.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_intro.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_message.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_profile.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_register.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_settings.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_show_profile.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/bar_layout.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/chat_item_left.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/chat_item_right.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/delete_account_alert.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/fragment_chats.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/fragment_groups.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/fragment_users.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/group_name.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/internet_connection_alertbox.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/main_toolbar.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/profile_photo_toolbar.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/dheer/AndroidStudioProjects/TalkNow/app/src/main/res/layout/user_item.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

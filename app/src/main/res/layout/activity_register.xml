@@ -116,13 +116,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/linear1"
             android:layout_centerHorizontal="true"
+            android:layout_marginLeft="70dp"
             android:layout_marginTop="25sp"
             android:background="@drawable/button_shape"
             android:padding="10dp"
             android:text="Register"
+            android:textColor="@color/white"
             android:textAlignment="center"
             android:textSize="20dp"
-            android:layout_marginLeft="70dp"
             android:textStyle="bold"
             tools:ignore="HardcodedText" />
 

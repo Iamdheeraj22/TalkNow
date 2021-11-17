@@ -10,23 +10,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.media.audiofx.BassBoost;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +26,6 @@ import com.example.tallnow.Fragments.Chats;
 import com.example.tallnow.Fragments.Groups;
 import com.example.tallnow.Fragments.Users;
 import com.example.tallnow.R;
-import com.example.tallnow.Receiver.MyReceiver;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,20 +43,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
     CircleImageView profile;
-    BroadcastReceiver broadcastReceiver;
     TextView uname;
     Toolbar toolbar;
     FirebaseUser firebaseUser;
     ImageView logoutImage,emojiImage;
-    //Handler handler;
     DatabaseReference databaseReference;
     FloatingActionButton floatingActionButton;
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        broadcastReceiver = new MyReceiver();
-        registerNetwork();
         initViews();
         getAndSetInfo();
         setTheEmoji();
@@ -227,7 +211,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerNetwork();
         status("Online");
     }
 
@@ -235,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         status("Offline");
-        unRegisterNetwork();
+        //unRegisterNetwork();
     }
 
     //Get and Set the Image and name
@@ -261,25 +244,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    protected void registerNetwork(){
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
-            registerReceiver(broadcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        }
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-            registerReceiver(broadcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        }
-    }
+//    protected void registerNetwork(){
+//        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N){
+//            registerReceiver(broadcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+//        }
+//        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+//            registerReceiver(broadcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+//        }
+//    }
 
-    protected void unRegisterNetwork(){
-         try {
-              unregisterReceiver(broadcastReceiver);
-         }catch (IllegalArgumentException e){
-             e.printStackTrace();
-         }
-    }
+//    protected void unRegisterNetwork(){
+//         try {
+//
+//         }catch (IllegalArgumentException e){
+//             e.printStackTrace();
+//         }
+//    }
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unRegisterNetwork();
+    protected void onStart() {
+        super.onStart();
     }
 }

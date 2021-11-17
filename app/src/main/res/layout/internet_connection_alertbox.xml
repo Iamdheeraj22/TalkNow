@@ -36,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:textColor="@color/black"
             android:layout_gravity="center"
             android:text="Please try again after you check your network"
             tools:ignore="HardcodedText" />
@@ -45,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_gravity="center"
+            android:textColor="@color/black"
             android:text="(including mobile data and wifi)"
             tools:ignore="HardcodedText" />
     </LinearLayout>
@@ -61,15 +63,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_shape"
-            android:text="Cancel"
-            android:id="@+id/alertCancelButton"
-            tools:ignore="HardcodedText" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_shape"
             android:text="Settings"
-            android:layout_marginStart="50dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
             android:id="@+id/alertSettingButton"
             tools:ignore="HardcodedText" />
 

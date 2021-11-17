@@ -88,10 +88,11 @@
                 android:background="@drawable/button_shape"
                 android:gravity="center"
                 android:padding="10dp"
+                android:textColor="@color/white"
                 android:text="Login"
-                android:textStyle="bold"
                 android:textAlignment="center"
                 android:textSize="20sp"
+                android:textStyle="bold"
                 tools:ignore="HardcodedText" />
         </RelativeLayout>
     </LinearLayout>

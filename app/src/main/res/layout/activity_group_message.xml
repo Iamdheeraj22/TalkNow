@@ -64,22 +64,23 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:padding="5dp"
-        android:background="#fff"
         android:id="@+id/bottom"
+        android:background="#090909"
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content">
+
         <EditText
+            android:id="@+id/txt_send"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:id="@+id/txt_send"
-            android:layout_toLeftOf="@id/btn_send"
-            android:background="@android:color/transparent"
-            android:hint="Type a message....."
             android:layout_centerVertical="true"
-            tools:ignore="HardcodedText,RtlHardcoded"
-            android:textSize="15sp"
+            android:layout_toLeftOf="@id/btn_send"
+            android:background="@color/white"
+            android:hint="Type a message....."
             android:importantForAutofill="no"
-            android:inputType="text" />
+            android:inputType="text"
+            android:textSize="15sp"
+            tools:ignore="HardcodedText,RtlHardcoded" />
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
