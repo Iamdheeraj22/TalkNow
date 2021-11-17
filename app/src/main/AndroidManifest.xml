@@ -18,14 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TalkNow"
         tools:ignore="AllowBackup">
-        <receiver
-            android:name=".Receiver.MyReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"
-                    tools:ignore="BatteryLife" />
-            </intent-filter>
-        </receiver>
 
         <activity
             android:name=".Activities.ForgetPasswordConfirmation"
