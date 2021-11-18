@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -37,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     CircleImageView profile;
     TextView uname;
     Toolbar toolbar;
+    String timeSession;
     FirebaseUser firebaseUser;
     ImageView logoutImage,emojiImage;
     DatabaseReference databaseReference;
@@ -58,6 +61,18 @@ public class MainActivity extends AppCompatActivity {
         setTheEmoji();
         final TabLayout tabLayout=findViewById(R.id.tab_layout);
         final ViewPager viewPager=findViewById(R.id.view_pager);
+
+        Calendar calendar=Calendar.getInstance();
+        int time_of_day=calendar.get(Calendar.HOUR_OF_DAY);
+        if(time_of_day>=4 && time_of_day<=12){
+            timeSession="Good Morning";
+        }else if(time_of_day>=12 && time_of_day<16){
+            timeSession="Good Afternoon";
+        }else if(time_of_day>=16 && time_of_day<21){
+            timeSession="Good Evening";
+        }else if(time_of_day>=21){
+            timeSession="Good Night";
+        }
 
         floatingActionButton.setOnClickListener(v->
                  startActivity(new Intent(this, User_Profile_Activity.class)));
@@ -224,11 +239,12 @@ public class MainActivity extends AppCompatActivity {
     //Get and Set the Image and name
     private void getAndSetInfo(){
         databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user=snapshot.getValue(User.class);
                 assert user != null;
-                uname.setText(user.getUsername());
+                uname.setText(timeSession+" , "+user.getUsername());
                 if(user.getImageurl().equals("default"))
                 {
                     profile.setImageResource(R.mipmap.ic_launcher_round);
