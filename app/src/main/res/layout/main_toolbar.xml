@@ -4,36 +4,44 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
             android:background="@color/colorPrimary">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_height="wrap_content">
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="30dp"
+                android:layout_width="40dp"
                 android:src="@drawable/person"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:id="@+id/profile_pic1"
                 tools:ignore="ContentDescription" />
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:text="@string/username"
-                android:id="@+id/uname2"
-                android:layout_marginStart="25dp"
-                android:textColor="@color/black"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/logout"
-                android:layout_marginStart="205dp"
-                android:id="@+id/logoutButton"
-                tools:ignore="ContentDescription" />
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
 
+                <TextView
+                    android:id="@+id/uname2"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_toStartOf="@id/logoutButton"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toEndOf="@id/profile_pic1"
+                    android:text="@string/username"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/logoutButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/logout"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
+        </androidx.appcompat.widget.Toolbar>
 </RelativeLayout>

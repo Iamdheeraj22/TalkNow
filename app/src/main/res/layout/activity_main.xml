@@ -18,14 +18,14 @@
             android:id="@+id/main_toolbar"
             layout="@layout/main_toolbar" />
 
-        <ImageView
-            android:id="@+id/moodEmoji"
-            android:layout_width="30sp"
-            android:layout_height="30sp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="13dp"
-            android:src="@drawable/happy"
-            tools:ignore="ContentDescription" />
+<!--        <ImageView-->
+<!--            android:id="@+id/moodEmoji"-->
+<!--            android:layout_width="30sp"-->
+<!--            android:layout_height="30sp"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginTop="13dp"-->
+<!--            android:src="@drawable/happy"-->
+<!--            tools:ignore="ContentDescription" />-->
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
