@@ -2,6 +2,7 @@ package com.example.tallnow.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,13 +26,11 @@ public class Login_Activity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        AlertDialog.Builder alert=new AlertDialog.Builder(Login_Activity.this);
-        alert.setMessage("If you are new user then first verify your email(Check your email)")
-                .setPositiveButton("Ok", (dialog, which) ->
-                        Toast.makeText(Login_Activity.this,"Thank you",Toast.LENGTH_SHORT).show());
-        AlertDialog alertDialog=alert.create();
-        alertDialog.setTitle("Notice");
-        alertDialog.show();
+        SharedPreferences sharedPreferences=getSharedPreferences("MyData",MODE_PRIVATE);
+        String alertBox=sharedPreferences.getString("showed","");
+        if(!alertBox.equals("yes")){
+            showAlertBox();
+        }
     }
 
     @Override
@@ -63,11 +62,12 @@ public class Login_Activity extends AppCompatActivity
                     if(task.isSuccessful())
                     {
                         if(firebaseAuth.getCurrentUser().isEmailVerified()){
-                            SharedPreferences sharedPreferences = getSharedPreferences("MyInfo", MODE_PRIVATE);
+                            SharedPreferences sharedPreferences = getSharedPreferences("MyData", MODE_PRIVATE);
                             @SuppressLint("CommitPrefEdits")
                             SharedPreferences.Editor myEdit = sharedPreferences.edit();
                             myEdit.putString("email",firebaseAuth.getCurrentUser().getEmail());
                             myEdit.putString("uid",firebaseAuth.getCurrentUser().getUid());
+                            myEdit.putString("check","login");
                             myEdit.apply();
                             progressDialog.dismiss();
                             Intent intent=new Intent(Login_Activity.this,MainActivity.class);
@@ -94,6 +94,23 @@ public class Login_Activity extends AppCompatActivity
         forget_password=findViewById(R.id.forget);
         firebaseAuth= FirebaseAuth.getInstance();
         btnSignUp=findViewById(R.id.btnSignUp);
-        progressDialog=new ProgressDialog(this);
+        progressDialog=new ProgressDialog(this,R.style.MyAlertDialogStyle);
+    }
+
+    private void showAlertBox(){
+        AlertDialog.Builder alert=new AlertDialog.Builder(Login_Activity.this);
+        alert.setMessage("If you are new user then first verify your email(Check your email)")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        SharedPreferences sharedPreferences=getSharedPreferences("MyData",MODE_PRIVATE);
+                        SharedPreferences.Editor editor=sharedPreferences.edit();
+                        editor.putString("showed","yes");
+                        editor.apply();
+                    }
+                });
+        AlertDialog alertDialog=alert.create();
+        alertDialog.setTitle("Notice");
+        alertDialog.show();
     }
 }
