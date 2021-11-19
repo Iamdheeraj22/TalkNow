@@ -24,6 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.tallnow.Classes.User;
+import com.example.tallnow.Methods.Methods;
 import com.example.tallnow.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,20 +45,21 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class User_Profile_Activity extends AppCompatActivity {
 
-    CircleImageView circleImageView,img_on,img_off;
+    CircleImageView circleImageView,mood_Emoji;
     TextView username,about,display_email;
     EditText aboutchange;
     Button about_button,moodButton;
     FirebaseUser firebaseUser;
     ProgressDialog progressDialog;
     DatabaseReference databaseReference;
+    Methods methods=new Methods();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         initViews();
         getAndSetInfo();
-
+        methods.setTheEmoji(mood_Emoji,firebaseUser,User_Profile_Activity.this);
         circleImageView.setOnClickListener(v -> {
             Intent intent=new Intent(User_Profile_Activity.this, profile_photo_activity.class);
             startActivity(intent);
@@ -106,8 +108,7 @@ public class User_Profile_Activity extends AppCompatActivity {
     }
 
     private void initViews () {
-        img_on=findViewById(R.id.img_on);
-        img_off=findViewById(R.id.img_off);
+        mood_Emoji=findViewById(R.id.mood_Emoji);
         circleImageView =findViewById(R.id.profile);
         username =findViewById(R.id.profile_username);
         about=findViewById(R.id.about);
@@ -131,12 +132,9 @@ public class User_Profile_Activity extends AppCompatActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         if(item.getTitle()=="Clear About")
         {
-            databaseReference.child("about").setValue("Available").addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(User_Profile_Activity.this,"Default Status update successfully",Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(e -> Toast.makeText(User_Profile_Activity.this,e.getMessage(),Toast.LENGTH_SHORT).show());
+            databaseReference.child("about").setValue("Available").addOnSuccessListener(aVoid ->
+                    Toast.makeText(User_Profile_Activity.this,"Default Status update successfully",Toast.LENGTH_SHORT).show()).
+                    addOnFailureListener(e -> Toast.makeText(User_Profile_Activity.this,e.getMessage(),Toast.LENGTH_SHORT).show());
             return true;
         }
         else  if (item.getTitle()=="Change About"){
@@ -194,17 +192,10 @@ public class User_Profile_Activity extends AppCompatActivity {
             Toast.makeText(User_Profile_Activity.this,"Please type your status!",Toast.LENGTH_SHORT).show();
         }
         else{
-            databaseReference.child("about").setValue(aboutstatus).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(User_Profile_Activity.this,"Status update successfully",Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(User_Profile_Activity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-                }
-            });
+            databaseReference.child("about").setValue(aboutstatus).addOnSuccessListener(aVoid ->
+                    Toast.makeText(User_Profile_Activity.this,"Status update successfully",Toast.LENGTH_SHORT).
+                            show()).addOnFailureListener(e ->
+                    Toast.makeText(User_Profile_Activity.this,e.getMessage(),Toast.LENGTH_SHORT).show());
         }
     }
 
