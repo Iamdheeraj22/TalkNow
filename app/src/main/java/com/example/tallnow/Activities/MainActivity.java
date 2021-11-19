@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import com.example.tallnow.Classes.User;
 import com.example.tallnow.Fragments.Chats;
 import com.example.tallnow.Fragments.Groups;
 import com.example.tallnow.Fragments.Users;
+import com.example.tallnow.Methods.Methods;
 import com.example.tallnow.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     String timeSession;
     FirebaseUser firebaseUser;
     ImageView logoutImage,emojiImage;
+    Methods methods=new Methods();
     DatabaseReference databaseReference;
     FloatingActionButton floatingActionButton;
     @Override
@@ -58,21 +61,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initViews();
         getAndSetInfo();
-        setTheEmoji();
+        timeSession=methods.setTimeSession();
+        //setTheEmoji();
         final TabLayout tabLayout=findViewById(R.id.tab_layout);
         final ViewPager viewPager=findViewById(R.id.view_pager);
 
-        Calendar calendar=Calendar.getInstance();
-        int time_of_day=calendar.get(Calendar.HOUR_OF_DAY);
-        if(time_of_day>=4 && time_of_day<=12){
-            timeSession="Good Morning";
-        }else if(time_of_day>=12 && time_of_day<16){
-            timeSession="Good Afternoon";
-        }else if(time_of_day>=16 && time_of_day<21){
-            timeSession="Good Evening";
-        }else if(time_of_day>=21){
-            timeSession="Good Night";
-        }
+
 
         floatingActionButton.setOnClickListener(v->
                  startActivity(new Intent(this, User_Profile_Activity.class)));
@@ -83,38 +77,20 @@ public class MainActivity extends AppCompatActivity {
             alert.setTitle("Alert");
             alert.setMessage("Do you want to logout?");
             alert.setPositiveButton("Yes", (dialog, which) -> {
+                SharedPreferences sharedPreferences=getSharedPreferences("MyData",MODE_PRIVATE);
+                SharedPreferences.Editor editor=sharedPreferences.edit();
+                editor.putString("check","logout");
+                editor.apply();
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(), Login_Activity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+                Intent intent=new Intent(MainActivity.this,Login_Activity.class);
+                startActivity(intent);
+                finish();
             }).setNegativeButton("No",null);
             alert.show();
         });
     }
 
-    private void setTheEmoji ()
-    {
-        DatabaseReference emoji=FirebaseDatabase.getInstance().getReference().child("Users").child(firebaseUser.getUid());
-        emoji.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange (@NonNull DataSnapshot snapshot) {
-                   if(snapshot.exists()){
-                       String emojiMood=snapshot.child("mood").getValue().toString();
-                       if(emojiMood.equals("HAPPY")){
-                           emojiImage.setImageResource(R.drawable.happy);
-                       }else if(emojiMood.equals("SAD")){
-                           emojiImage.setImageResource(R.drawable.sad);
-                       }else if (emojiMood.equals("CRY")){
-                           emojiImage.setImageResource(R.drawable.cry);
-                       }else if(emojiMood.equals("LAUGH")){
-                           emojiImage.setImageResource(R.drawable.laugh);
-                       }
-                   }
-            }
-            @Override
-            public void onCancelled (@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+
 
     private void setMessageAndTablayout (TabLayout tabLayout, ViewPager viewPager)
     {
@@ -151,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     private void initViews ()
     {
         //handler=new Handler();
-        emojiImage=findViewById(R.id.moodEmoji);
+        //emojiImage=findViewById(R.id.moodEmoji);
         toolbar=findViewById(R.id.toolbar);
         profile=toolbar.findViewById(R.id.profile_pic1);
         uname=toolbar.findViewById(R.id.uname2);
