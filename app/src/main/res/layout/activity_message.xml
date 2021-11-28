@@ -57,7 +57,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:padding="5dp"
-        android:background="#090909"
+        android:layout_marginBottom="8dp"
         android:id="@+id/bottom"
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content">
@@ -69,11 +69,11 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@id/btn_send"
-            android:background="@drawable/edittext_shape"
+            android:background="@drawable/round_white_edittext"
             android:hint="Type a message....."
             android:importantForAutofill="no"
             android:inputType="text"
-            android:paddingLeft="10dp"
+            android:padding="10dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             android:textSize="15sp"

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Talk Now</string>
     <string name="username">Username</string>
+    <string name="network_is_not_connected">Network is not connected!</string>
 </resources>

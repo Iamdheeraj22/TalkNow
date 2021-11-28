@@ -81,8 +81,7 @@ public class Message_Activity extends AppCompatActivity
         ImageView backImage;
         backImage=toolbar.findViewById(R.id.back_image);
         backImage.setOnClickListener(v->{
-            startActivity(new Intent(
-                    Message_Activity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            onBackPressed();
         });
         toolbar.setNavigationOnClickListener(v -> startActivity(new Intent(
                 Message_Activity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)));
@@ -218,7 +217,7 @@ public class Message_Activity extends AppCompatActivity
                     apiService.sendNotification(sender)
                             .enqueue(new Callback<Myresponse>() {
                                 @Override
-                                public void onResponse(@NonNull Call<Myresponse> call, Response<Myresponse> response) {
+                                public void onResponse(@NonNull Call<Myresponse> call, @NonNull Response<Myresponse> response) {
                                     if(response.code()==200){
                                         assert response.body() != null;
                                         if (response.body().succes!=1){
@@ -291,5 +290,11 @@ public class Message_Activity extends AppCompatActivity
         databaseReference.removeEventListener(seenMessage);
         status("Offline");
         currentUser("none");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

@@ -64,7 +64,7 @@ public class Methods
             timeSession="Good Afternoon";
         }else if(time_of_day>=16 && time_of_day<21){
             timeSession="Good Evening";
-        }else if(time_of_day>=21){
+        }else if(time_of_day>21){
             timeSession="Good Night";
         }
         return timeSession;

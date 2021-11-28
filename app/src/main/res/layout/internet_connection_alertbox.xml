@@ -5,12 +5,12 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/warning_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/warning"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:id="@+id/warning_image"/>
+        android:src="@drawable/warning" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -25,8 +25,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Network is not connected!"
-            android:textSize="15dp"
+            android:text="@string/network_is_not_connected"
+            android:textSize="15sp"
             android:textAlignment="center"
             android:textStyle="bold"
             android:layout_gravity="center"
@@ -63,10 +63,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_shape"
-            android:text="Settings"
+            android:text="Retry"
             android:textColor="@color/white"
             android:layout_gravity="center"
-            android:id="@+id/alertSettingButton"
+            android:id="@+id/alertRetryButton"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
