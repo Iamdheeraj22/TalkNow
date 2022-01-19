@@ -41,12 +41,10 @@ public class Login_Activity extends AppCompatActivity
 
         btnSignUp.setOnClickListener(v -> {
             startActivity(new Intent(Login_Activity.this, Register_Activity.class));
-            finish();
         });
         forget_password.setOnClickListener(v -> {
             Intent intent=new Intent(Login_Activity.this,ForgetPassword_Activity.class);
             startActivity(intent);
-            finish();
         });
         btnlogin.setOnClickListener(v -> {
             progressDialog.setMessage("Please wait few seconds..");

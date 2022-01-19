@@ -70,5 +70,6 @@ public class ForgetPassword_Activity extends AppCompatActivity {
         super.onBackPressed();
         startActivity(new Intent(ForgetPassword_Activity.this,Login_Activity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+        finish();
     }
 }

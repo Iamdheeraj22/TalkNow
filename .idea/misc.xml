@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/drawable/app_logo.xml" value="0.17592592592592593" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/drawable/back_left.xml" value="0.2203125" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/drawable/button_shape.xml" value="0.2203125" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/drawable/delete_warning.xml" value="0.1125" />
@@ -20,6 +21,7 @@
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_forget_password.xml" value="0.25" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_forget_password_confirmation.xml" value="0.25" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_group_message.xml" value="0.1" />
+        <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_intro.xml" value="0.1734375" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_login.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Glal9/AndroidStudioProjects/TalkNow/app/src/main/res/layout/activity_message.xml" value="0.18" />
